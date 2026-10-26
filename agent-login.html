@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Login | A.N Service &amp; Consultancy</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+  <style>
+    /* ===== Glass form card with logo as its background ===== */
+    .admin-login .login-card {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .14);
+      border: 1px solid rgba(255, 255, 255, .32);
+      box-shadow:
+        0 24px 60px rgba(8, 22, 40, .45),
+        inset 0 1px 0 rgba(255, 255, 255, .40);
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      color: #f4f8ff;
+    }
+
+    /* Logo as the card's background layer */
+    .admin-login .login-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('css/logo.png') center center / 70% no-repeat;
+      opacity: .18;
+      filter: grayscale(1) brightness(2);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Keep all form content above the logo layer */
+    .admin-login .login-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .admin-login .login-card h1 { color: #fff; }
+    .admin-login .login-card .eyebrow { color: #b9d5ff; }
+    .admin-login .login-card .muted { color: rgba(230, 238, 250, .85); }
+
+    .admin-login .login-card .login-icon {
+      background: rgba(255, 255, 255, .22);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .35);
+      backdrop-filter: blur(6px);
+    }
+
+    .admin-login .login-card .field label { color: #eaf1fb; }
+
+    .admin-login .login-card .field input:not([type=radio]):not([type=checkbox]) {
+      background: rgba(255, 255, 255, .14);
+      border: 1px solid rgba(255, 255, 255, .35);
+      color: #fff;
+    }
+
+    .admin-login .login-card .field input::placeholder {
+      color: rgba(230, 238, 250, .6);
+    }
+
+    .admin-login .login-card .field input:focus {
+      background: rgba(255, 255, 255, .22);
+      border-color: rgba(255, 255, 255, .75);
+      box-shadow: 0 0 0 3px rgba(169, 204, 255, .35);
+    }
+
+    .admin-login .login-card .demo-credentials {
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .25);
+      color: #eaf1fb;
+      backdrop-filter: blur(6px);
+    }
+
+    .admin-login .login-card .demo-credentials code {
+      background: rgba(255, 255, 255, .2);
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .admin-login .login-card .login-error { color: #ffb4b4; }
+
+    /* Fallback when backdrop-filter is unsupported */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .admin-login .login-card { background: rgba(16, 39, 71, .88); }
+    }
+  </style>
+</head>
+
+<body class="admin-page">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">
+        <img class="brand-mark" src="css/logo.png" alt="A.N Resources logo">
+        <span>A.N<span class="brand-sub">SERVICE &amp; CONSULTANCY</span></span>
+      </a>
+      <a class="back-link" href="index.html">← Back to website</a>
+    </div>
+  </header>
+
+  <main class="login-wrap admin-login">
+    <form id="agent-login" class="login-card">
+      <!-- <div class="login-icon">↗</div> -->
+      <p class="eyebrow">AGENT PORTAL</p>
+      <h1>Agent sign in</h1>
+      <p class="muted">Sign in to submit a candidate referral.</p>
+      <div class="field"><label for="agentUser">Agent username</label><input id="agentUser" name="username" required
+          autocomplete="username" placeholder="Enter agent username"></div>
+      <div class="field"><label for="agentPass">Password</label><input id="agentPass" name="password" type="password"
+          required autocomplete="current-password" placeholder="Enter password"></div>
+      <button class="btn btn-primary btn-full" type="submit">Sign in →</button>
+      <p class="login-error" id="agent-login-error" role="alert"></p>
+      <div class="demo-credentials"><strong>Preview credentials</strong><br>Username: <code>agent</code> &nbsp;
+        Password: <code>demo123</code>
+      </div>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid"><small>© <span class="year"></span> A.N Service &amp; Consultancy · agent
+        portal</small></div>
+  </footer>
+</body>
+
+</html>

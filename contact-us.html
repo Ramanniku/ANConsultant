@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact Us | GulfBridge Resources</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+             <a class="brand" href="index.html">
+        <img class="brand-mark" src="css/logo.png" alt="A.N Resources logo">
+         <span>A.N</span><span class="brand-sub">SERVICE &amp; CONSULTANCY</span>
+      </a>
+            <button class="menu-toggle" aria-label="Toggle navigation"
+                aria-expanded="false">☰</button>
+            <nav class="nav"><a href="index.html">Home</a><a href="about.html">About Us</a><a
+                    href="careers.html">Careers</a><a href="pcc.html">PCC Enquiry</a><div class="nav-mega-wrap"><button class="nav-mega-trigger" type="button" aria-expanded="false">Attestation</button><div class="nav-mega" hidden><div class="mega-feature"><p class="eyebrow">ATTESTATION</p><h3>Certificate attestation</h3><p>Find the right route for your certificate, destination country and document type.</p><a class="mega-cta" href="contact-us.html">Start my enquiry →</a></div><div class="mega-column"><h4>BY OFFICE</h4><a href="contact-us.html">HRD attestation<small>Educational certificates</small></a><a href="contact-us.html">Home attestation<small>Personal documents</small></a><a href="contact-us.html">SDM and notary<small>The other state route</small></a><a href="contact-us.html">MEA attestation<small>After the state step</small></a><a href="contact-us.html">Apostille<small>Apostille Convention countries</small></a><a href="contact-us.html">MOFA attestation<small>The last stamp, in the country</small></a><a href="contact-us.html">Equivalency and Saudi QVP<small>UAE, Oman, Saudi Arabia</small></a></div><div class="mega-column mega-countries"><h4>BY COUNTRY</h4><div class="mega-country-grid"><a href="contact-us.html">🇦🇪 UAE</a><a href="contact-us.html">🇴🇲 Oman</a><a href="contact-us.html">🇶🇦 Qatar</a><a href="contact-us.html">🇲🇾 Malaysia</a><a href="contact-us.html">🇰🇼 Kuwait</a><a href="contact-us.html">🇪🇬 Egypt</a><a href="contact-us.html">🇧🇭 Bahrain</a><a href="contact-us.html">🇱🇾 Libya</a><a href="contact-us.html">🇸🇦 Saudi Arabia</a><a href="contact-us.html">🇨🇳 China</a></div></div><div class="mega-column"><h4>BY DOCUMENT</h4><a href="contact-us.html">Marriage certificate<small>Spouse and family visas</small></a><a href="contact-us.html">Birth certificate<small>Child’s visa or school</small></a><a href="contact-us.html">Experience certificate<small>Jobs abroad, healthcare too</small></a><a href="contact-us.html">Commercial documents<small>Chamber of Commerce first</small></a><h4 class="mega-subhead">EVERY OTHER COUNTRY</h4><a href="contact-us.html">Find the route for your country</a><h4 class="mega-subhead">TRANSLATION</h4><a href="contact-us.html">Certified translation</a><a href="contact-us.html">Arabic translation</a><a href="contact-us.html">Malayalam translation</a></div></div></div><a class="active"
+                    href="contact-us.html">Contact Us</a><a href="agent-login.html">Agent Login</a><a class="nav-cta"
+                    href="#contact-form">Send an Enquiry</a></nav>
+        </div>
+    </header>
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <p class="eyebrow">CONTACT OUR TEAM</p>
+                <h1>How can we help you?</h1>
+                <p class="lead">Have a question about our recruitment services, job opportunities or workforce
+                    solutions? Send us a message and tell us how we can assist.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container form-layout">
+                <aside class="form-aside">
+                    <p class="eyebrow">GET IN TOUCH</p>
+                    <h2>We’re here to help.</h2>
+                    <p>Use the form to send a general enquiry. Please provide a phone number or email address so the
+                        team can follow up.</p>
+                    <div class="aside-note"><span>i</span>
+                        <p>This is a website demo form. Submissions are saved only in this browser and are not sent to
+                            GulfBridge Resources until a secure backend or email service is connected.</p>
+                    </div>
+                    <div class="aside-contact"><small>JOB ENQUIRIES</small><strong>Looking for a role?</strong><a
+                            href="careers.html">Browse current job listings →</a><small>Replace the sample contact
+                            details across this demo before publishing.</small></div>
+                </aside>
+                <form class="pcc-form" id="contact-form">
+                    <div class="form-title">
+                        <h2>Send us a message</h2>
+                        <p>Fields marked with * are required.</p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="field"><label for="contact-name">Full name *</label><input id="contact-name"
+                                name="name" required autocomplete="name" placeholder="Your full name"></div>
+                        <div class="field"><label for="contact-phone">Phone number</label><input id="contact-phone"
+                                name="phone" type="tel" autocomplete="tel" placeholder="e.g. +91 98765 43210"></div>
+                        <div class="field"><label for="contact-email">Email address</label><input id="contact-email"
+                                name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+                        <div class="field"><label for="contact-subject">Enquiry type *</label><select
+                                id="contact-subject" name="subject" required>
+                                <option value="">Choose an enquiry type</option>
+                                <option>Job opportunity</option>
+                                <option>Recruitment services</option>
+                                <option>Employer / workforce enquiry</option>
+                                <option>General question</option>
+                                <option>Other</option>
+                            </select></div>
+                        <div class="field full"><label for="contact-message">Message *</label><textarea
+                                id="contact-message" name="message" required rows="6"
+                                placeholder="Tell us how we can help..."></textarea></div>
+                        <div class="field full"><label class="check-label"><input type="checkbox" name="consent"
+                                    value="Yes" required> I agree to be contacted about this enquiry. *</label></div>
+                    </div>
+                    <div class="form-footer">
+                        <p>Please do not include passport numbers, financial details or other sensitive personal
+                            information.</p><button class="btn btn-primary" type="submit">Send Enquiry
+                            <span>→</span></button>
+                    </div>
+                    <div class="form-message" id="contact-form-message" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container footer-grid">
+               <a class="brand footer-brand" href="index.html">
+        <img class="brand-mark" src="css/logo.png" alt="A.N Resources logo">
+        <span>A.N<span class="brand-sub">service &amp; consultancy.</span></span>
+      </a>
+            <p>Connecting people, skills and opportunities across borders.</p>
+            <div class="footer-links"><a href="about.html">About</a><a href="careers.html">Careers</a><a
+                    href="pcc.html">PCC Enquiry</a><a href="contact-us.html">Contact Us</a><a
+                    href="agent-login.html">Agent Login</a><a href="admin-login.html">Admin</a></div><small>© <span
+                    class="year"></span>  A.N service &amp; consultancy.</small>
+        </div>
+    </footer>
+</body>
+
+</html>
