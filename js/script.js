@@ -184,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.key === 'Escape' && jobDrawer?.classList.contains('open')) closeJobDrawer();
   });
 
-
   // General Contact Us enquiry form (local browser demo only).
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
@@ -340,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Admin dashboard: guard, PCC/Agent tabs, search, detail modal and CSV exports
+  // Admin dashboard: guard, PCC/Agent/Contact tabs, search, detail modal and CSV exports
   const pccRows = document.getElementById('enquiry-rows');
   const agentRows = document.getElementById('agent-enquiry-rows');
   if (pccRows && agentRows) {
@@ -350,17 +349,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     let pccEntries = readList(PCC_KEY);
     let agentEntries = readList(AGENT_KEY);
+    let contactEntries = readList(CONTACT_KEY); // ── CONTACT ──
     const pccSearch = document.getElementById('search-enquiries');
     const agentSearch = document.getElementById('search-agent-enquiries');
+    const contactSearch = document.getElementById('search-contact-enquiries'); // ── CONTACT ──
     const pccEmpty = document.getElementById('empty-state');
     const agentEmpty = document.getElementById('agent-empty-state');
+    const contactEmpty = document.getElementById('contact-empty-state'); // ── CONTACT ──
+    const contactRows = document.getElementById('contact-enquiry-rows'); // ── CONTACT ──
     const modal = document.getElementById('detail-modal');
     const detailContent = document.getElementById('detail-content');
     const detailTitle = document.getElementById('detail-title');
     const closeModal = document.getElementById('close-modal');
 
     const showTab = view => {
-      ['pcc', 'agent', 'jobs'].forEach(name => {
+      ['pcc', 'agent', 'contact', 'jobs'].forEach(name => { // ── CONTACT ── added 'contact'
         const section = document.getElementById(`${name}-view`);
         if (section) section.hidden = name !== view;
       });
@@ -400,11 +403,43 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    // ── CONTACT ── Render contact enquiries
+    const renderContact = () => {
+      if (!contactRows) return;
+      const query = (contactSearch?.value || '').trim().toLowerCase();
+      const filtered = contactEntries.filter(e => [e.name, e.phone, e.email, e.subject, e.message].some(v => String(v || '').toLowerCase().includes(query)));
+      document.getElementById('contact-stat-total').textContent = contactEntries.length;
+      document.getElementById('contact-stat-jobs').textContent = contactEntries.filter(e => (e.subject || '') === 'Job opportunity').length;
+      document.getElementById('contact-stat-employer').textContent = contactEntries.filter(e => (e.subject || '') === 'Employer / workforce enquiry').length;
+      contactRows.innerHTML = filtered.map(e => {
+        const msg = String(e.message || '');
+        const preview = msg.length > 90 ? msg.slice(0, 90) + '…' : msg;
+        return `<tr>
+          <td><strong>${safe(e.name)}</strong><small>${safe(e.phone || e.email || '—')}</small></td>
+          <td>${safe(e.subject || '—')}</td>
+          <td>${safe(preview || '—')}</td>
+          <td>${safe(formatDateTime(e.submittedAt))}</td>
+          <td><button class="btn btn-outline btn-small view-entry" data-kind="contact" data-id="${safe(e.id)}">View</button></td>
+        </tr>`;
+      }).join('');
+      if (contactEmpty) {
+        contactEmpty.classList.toggle('empty-hidden', filtered.length > 0);
+        contactEmpty.querySelector('h3').textContent = contactEntries.length && !filtered.length ? 'No matching messages' : 'No contact enquiries yet';
+        contactEmpty.querySelector('p').textContent = contactEntries.length && !filtered.length ? 'Try a different name, subject, phone or email.' : "Messages sent through the Contact Us page will appear here in this browser's demo storage.";
+      }
+    };
+
     const openDetails = (kind, id) => {
       const isAgent = kind === 'agent';
-      const entry = (isAgent ? agentEntries : pccEntries).find(item => String(item.id) === String(id));
+      const isContact = kind === 'contact'; // ── CONTACT ──
+      const source = isAgent ? agentEntries : isContact ? contactEntries : pccEntries;
+      const entry = source.find(item => String(item.id) === String(id));
       if (!entry || !modal || !detailContent) return;
-      detailTitle.textContent = isAgent ? (entry.candidateName || 'Candidate referral details') : (entry.fullName || 'PCC enquiry details');
+      detailTitle.textContent = isAgent
+        ? (entry.candidateName || 'Candidate referral details')
+        : isContact
+          ? (entry.name || 'Contact enquiry details')
+          : (entry.fullName || 'PCC enquiry details');
       if (isAgent) {
         detailContent.innerHTML = '<div class="detail-grid">' +
           addDetail('Candidate name', entry.candidateName) + addDetail('Date of birth', formatDate(entry.dob)) +
@@ -414,6 +449,16 @@ document.addEventListener('DOMContentLoaded', () => {
           addDetail('Marital status', entry.maritalStatus) + addDetail('Lost passport', entry.lostPassport) +
           addDetail('Lost passport details', entry.lostPassportDetails) + addDetail('Spouse passport available', entry.spousePassport) +
           addDetail('Parent passport available', entry.parentPassport) + addDetail('Submitted at', formatDateTime(entry.submittedAt)) + '</div>';
+      } else if (isContact) { // ── CONTACT ──
+        detailContent.innerHTML = '<div class="detail-grid">' +
+          addDetail('Full name', entry.name) +
+          addDetail('Phone', entry.phone) +
+          addDetail('Email', entry.email) +
+          addDetail('Enquiry type', entry.subject) +
+          addDetail('Consent to contact', entry.consent) +
+          addDetail('Submitted at', formatDateTime(entry.submittedAt)) +
+          '</div>' +
+          `<div class="detail-notes"><h4>Message</h4><p>${safe(entry.message || '—').replace(/\n/g, '<br>')}</p></div>`;
       } else {
         detailContent.innerHTML = '<div class="detail-grid">' +
           addDetail('Full name', entry.fullName) + addDetail('WhatsApp contact', entry.whatsapp) +
@@ -433,11 +478,22 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && modal) modal.hidden = true; });
     if (pccSearch) pccSearch.addEventListener('input', renderPcc);
     if (agentSearch) agentSearch.addEventListener('input', renderAgent);
+    if (contactSearch) contactSearch.addEventListener('input', renderContact); // ── CONTACT ──
 
     const pccExport = document.getElementById('export-pcc-csv');
     if (pccExport) pccExport.addEventListener('click', () => csvDownload('pcc-enquiries-demo.csv', ['Full name','WhatsApp','Passports held','Criminal offence abroad','Country','First entry','Last exit','Civil ID','Submitted at'], ['fullName','whatsapp','passportCount','criminalOffence','country','firstEntry','lastExit','civilId','submittedAt'], pccEntries));
     const agentExport = document.getElementById('export-agent-csv');
     if (agentExport) agentExport.addEventListener('click', () => csvDownload('agent-referrals-demo.csv', ['Candidate name','DOB','Age','Experience','Overseas experience','Skills','Education','Passport number','Marital status','Lost passport','Lost passport details','Spouse passport','Parent passport','Submitted at'], ['candidateName','dob','age','experience','abroadExperience','skills','education','passportNumber','maritalStatus','lostPassport','lostPassportDetails','spousePassport','parentPassport','submittedAt'], agentEntries));
+
+    // ── CONTACT ── CSV export for contact enquiries
+    const contactExport = document.getElementById('export-contact-csv');
+    if (contactExport) contactExport.addEventListener('click', () => csvDownload(
+      'contact-enquiries-demo.csv',
+      ['Full name','Phone','Email','Enquiry type','Message','Consent','Submitted at'],
+      ['name','phone','email','subject','message','consent','submittedAt'],
+      contactEntries
+    ));
+
     // Admin job manager: title + short description + image.
     const adminJobForm = document.getElementById('admin-job-form');
     const adminJobRows = document.getElementById('admin-job-rows');
@@ -501,6 +557,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const logout = document.getElementById('logout');
     if (logout) logout.addEventListener('click', () => { sessionStorage.removeItem('gulfbridge_demo_admin'); window.location.href = 'admin-login.html'; });
 
-    renderPcc(); renderAgent(); showTab('pcc');
+    renderPcc(); renderAgent(); renderContact(); showTab('pcc'); // ── CONTACT ── added renderContact()
   }
 });

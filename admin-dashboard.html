@@ -12,34 +12,46 @@
 <body class="dashboard-page">
   <header class="site-header">
     <div class="container nav-wrap">
-  <a class="brand" href="index.html">
+      <a class="brand" href="index.html">
         <img class="brand-mark" src="css/logo.png" alt="A.N Resources logo">
-         <span>A.N</span><span class="brand-sub">SERVICE &amp; CONSULTANCY</span>
+        <span>A.N</span><span class="brand-sub">SERVICE &amp; CONSULTANCY</span>
       </a>
-      <div class="dashboard-actions"><a class="back-link" href="index.html">View website ↗</a><button
-          class="btn btn-outline btn-small" id="logout">Log out</button></div>
+      <div class="dashboard-actions">
+        <a class="back-link" href="index.html">View website ↗</a>
+        <button class="btn btn-outline btn-small" id="logout">Log out</button>
+      </div>
     </div>
   </header>
+
   <main class="section">
     <div class="container">
       <div class="dashboard-title">
         <div>
           <p class="eyebrow">ADMINISTRATION / ENQUIRIES</p>
           <h1>Enquiry dashboard</h1>
-          <p class="muted">Switch between PCC enquiries and candidate referrals submitted.</p>
+          <p class="muted">Switch between PCC enquiries, agent referrals and general contact messages.</p>
         </div>
       </div>
-      <div class="dashboard-tabs" role="tablist" aria-label="Enquiry type"><button class="dashboard-tab active"
-          id="tab-pcc" type="button" role="tab" aria-selected="true" data-view="pcc">PCC Enquiries</button><button
-          class="dashboard-tab" id="tab-agent" type="button" role="tab" aria-selected="false" data-view="agent">Agent
-          Enquiries</button><button class="dashboard-tab" id="tab-jobs" type="button" role="tab" aria-selected="false"
-          data-view="jobs">Add Jobs</button></div>
+
+      <div class="dashboard-tabs" role="tablist" aria-label="Enquiry type">
+        <button class="dashboard-tab active" id="tab-pcc" type="button" role="tab"
+                aria-selected="true" data-view="pcc">PCC Enquiries</button>
+        <button class="dashboard-tab" id="tab-agent" type="button" role="tab"
+                aria-selected="false" data-view="agent">Agent Enquiries</button>
+        <button class="dashboard-tab" id="tab-contact" type="button" role="tab"
+                aria-selected="false" data-view="contact">Contact Enquiries</button>
+        <button class="dashboard-tab" id="tab-jobs" type="button" role="tab"
+                aria-selected="false" data-view="jobs">Add Jobs</button>
+      </div>
+
+      <!-- ===================== PCC ENQUIRIES ===================== -->
       <section id="pcc-view" class="dashboard-view" role="tabpanel" aria-labelledby="tab-pcc">
         <div class="dashboard-title sub-dashboard-title">
           <div>
             <h2>PCC enquiries</h2>
             <p class="muted">Review submitted Police Clearance Certificate enquiries.</p>
-          </div><button class="btn btn-outline btn-small" id="export-pcc-csv">Export PCC CSV ↓</button>
+          </div>
+          <button class="btn btn-outline btn-small" id="export-pcc-csv">Export PCC CSV ↓</button>
         </div>
         <div class="stats-grid">
           <div class="stat-card"><span>Total enquiries</span><strong id="stat-total">0</strong></div>
@@ -48,8 +60,9 @@
         </div>
         <div class="table-card">
           <div class="table-toolbar">
-            <h2>Submitted PCC enquiries</h2><input id="search-enquiries" placeholder="Search by name, country or phone…"
-              aria-label="Search PCC enquiries">
+            <h2>Submitted PCC enquiries</h2>
+            <input id="search-enquiries" placeholder="Search by name, country or phone…"
+                   aria-label="Search PCC enquiries">
           </div>
           <div class="table-scroll">
             <table>
@@ -71,28 +84,32 @@
           <div id="empty-state" class="empty-state">
             <div>▤</div>
             <h3>No PCC enquiries yet</h3>
-            <p>Submitted PCC enquiries will appear here in this browser's demo storage.</p><a class="text-link"
-              href="pcc.html">Open PCC form →</a>
+            <p>Submitted PCC enquiries will appear here in this browser's demo storage.</p>
+            <a class="text-link" href="pcc.html">Open PCC form →</a>
           </div>
         </div>
       </section>
+
+      <!-- ===================== AGENT ENQUIRIES ===================== -->
       <section id="agent-view" class="dashboard-view" role="tabpanel" aria-labelledby="tab-agent" hidden>
         <div class="dashboard-title sub-dashboard-title">
           <div>
             <h2>Agent referrals</h2>
             <p class="muted">Review candidate details submitted by agents.</p>
-          </div><button class="btn btn-outline btn-small" id="export-agent-csv">Export agent CSV ↓</button>
+          </div>
+          <button class="btn btn-outline btn-small" id="export-agent-csv">Export agent CSV ↓</button>
         </div>
         <div class="stats-grid agent-stats">
           <div class="stat-card"><span>Total referrals</span><strong id="agent-stat-total">0</strong></div>
           <div class="stat-card"><span>Married candidates</span><strong id="agent-stat-married">0</strong></div>
-          <div class="stat-card"><span>Overseas experience recorded</span><strong id="agent-stat-abroad">0</strong>
-          </div>
+          <div class="stat-card"><span>Overseas experience recorded</span><strong id="agent-stat-abroad">0</strong></div>
         </div>
         <div class="table-card">
           <div class="table-toolbar">
-            <h2>Submitted agent referrals</h2><input id="search-agent-enquiries"
-              placeholder="Search by candidate, skills or education…" aria-label="Search agent referrals">
+            <h2>Submitted agent referrals</h2>
+            <input id="search-agent-enquiries"
+                   placeholder="Search by candidate, skills or education…"
+                   aria-label="Search agent referrals">
           </div>
           <div class="table-scroll">
             <table>
@@ -113,11 +130,60 @@
           <div id="agent-empty-state" class="empty-state">
             <div>▤</div>
             <h3>No agent referrals yet</h3>
-            <p>Candidate referrals submitted through the agent portal will appear here in this browser's demo storage.
-            </p><a class="text-link" href="agent-login.html">Open agent login →</a>
+            <p>Candidate referrals submitted through the agent portal will appear here in this browser's demo storage.</p>
+            <a class="text-link" href="agent-login.html">Open agent login →</a>
           </div>
         </div>
       </section>
+
+      <!-- ===================== CONTACT ENQUIRIES ===================== -->
+      <section id="contact-view" class="dashboard-view" role="tabpanel"
+               aria-labelledby="tab-contact" hidden>
+        <div class="dashboard-title sub-dashboard-title">
+          <div>
+            <h2>General contact enquiries</h2>
+            <p class="muted">Messages submitted through the Contact Us page.</p>
+          </div>
+          <button class="btn btn-outline btn-small" id="export-contact-csv">Export contact CSV ↓</button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><span>Total messages</span><strong id="contact-stat-total">0</strong></div>
+          <div class="stat-card"><span>Job opportunities</span><strong id="contact-stat-jobs">0</strong></div>
+          <div class="stat-card"><span>Employer enquiries</span><strong id="contact-stat-employer">0</strong></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h2>Submitted contact messages</h2>
+            <input id="search-contact-enquiries"
+                   placeholder="Search by name, subject, phone or email…"
+                   aria-label="Search contact enquiries">
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name / Contact</th>
+                  <th>Subject</th>
+                  <th>Message</th>
+                  <th>Submitted</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="contact-enquiry-rows"></tbody>
+            </table>
+          </div>
+          <div id="contact-empty-state" class="empty-state">
+            <div>▤</div>
+            <h3>No contact enquiries yet</h3>
+            <p>Messages sent through the Contact Us page will appear here in this browser's demo storage.</p>
+            <a class="text-link" href="contact-us.html">Open Contact Us page →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ADD JOBS ===================== -->
       <section id="jobs-view" class="dashboard-view" role="tabpanel" aria-labelledby="tab-jobs" hidden>
         <div class="dashboard-title sub-dashboard-title">
           <div>
@@ -131,16 +197,34 @@
             <p>Add only the job title, a short description and a photo. These will appear on the Careers page.</p>
           </div>
           <div class="form-grid">
-            <div class="field full"><label for="job-profile-name">Job name *</label><input id="job-profile-name" name="jobName" required maxlength="100" placeholder="e.g. Electrician"></div>
-            <div class="field full"><label for="job-description">Short description *</label><textarea id="job-description" name="description" required rows="4" maxlength="2000" placeholder="Briefly describe the role and opportunity..."></textarea></div>
-            <div class="field full"><label for="job-photo">Job photo *</label><input id="job-photo" name="photoFile" type="file" accept="image/*" required><small class="muted">Choose JPG, PNG or WebP. Keep the image under 2 MB for this browser demo.</small><img id="job-photo-preview" class="job-photo-preview" alt="Selected job photo preview" hidden></div>
+            <div class="field full">
+              <label for="job-profile-name">Job name *</label>
+              <input id="job-profile-name" name="jobName" required maxlength="100"
+                     placeholder="e.g. Electrician">
+            </div>
+            <div class="field full">
+              <label for="job-description">Short description *</label>
+              <textarea id="job-description" name="description" required rows="4" maxlength="2000"
+                        placeholder="Briefly describe the role and opportunity..."></textarea>
+            </div>
+            <div class="field full">
+              <label for="job-photo">Job photo *</label>
+              <input id="job-photo" name="photoFile" type="file" accept="image/*" required>
+              <small class="muted">Choose JPG, PNG or WebP. Keep the image under 2 MB for this browser demo.</small>
+              <img id="job-photo-preview" class="job-photo-preview" alt="Selected job photo preview" hidden>
+            </div>
           </div>
-          <div class="form-footer"><p>Publishing stores the job in this browser's demo storage.</p><button class="btn btn-primary" type="submit">Publish job</button></div>
+          <div class="form-footer">
+            <p>Publishing stores the job in this browser's demo storage.</p>
+            <button class="btn btn-primary" type="submit">Publish job</button>
+          </div>
           <p id="job-form-message" class="form-message" aria-live="polite"></p>
         </form>
+
         <div class="table-card jobs-admin-list">
           <div class="table-toolbar">
-            <h2>Published job profiles</h2><span class="muted" id="admin-job-count">0 jobs</span>
+            <h2>Published job profiles</h2>
+            <span class="muted" id="admin-job-count">0 jobs</span>
           </div>
           <div class="table-scroll">
             <table>
@@ -162,23 +246,25 @@
           </div>
         </div>
       </section>
-      <!-- <p class="notice"><strong>Demo limitation:</strong> These records are stored in this browser only. They are not
-        shared between different computers or users. Passport details are sensitive; connect secure server-side storage,
-        authentication, and access controls before using real candidate data.</p> -->
+
     </div>
   </main>
+
+  <!-- Detail modal (shared by PCC / Agent / Contact) -->
   <div class="modal-backdrop" id="detail-modal" hidden>
     <section class="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title">
       <div class="modal-heading">
-        <h2 id="detail-title">Enquiry details</h2><button id="close-modal" class="icon-button"
-          aria-label="Close details">×</button>
+        <h2 id="detail-title">Enquiry details</h2>
+        <button id="close-modal" class="icon-button" aria-label="Close details">×</button>
       </div>
       <div id="detail-content" class="detail-content"></div>
     </section>
   </div>
+
   <footer class="footer">
-    <div class="container footer-grid"><small>© <span class="year"></span>  A.N service &amp; consultancy. admin
-        dashboard</small></div>
+    <div class="container footer-grid">
+      <small>© <span class="year"></span> A.N service &amp; consultancy. admin dashboard</small>
+    </div>
   </footer>
 </body>
 
