@@ -153,11 +153,21 @@ document.addEventListener('DOMContentLoaded', () => {
     return { id: card.dataset.jobId || `sample-${slug(title)}`, title };
   };
 
+  // Contact details for admin-published jobs (sample jobs carry theirs in careers.html).
+  const CONTACT_PEOPLE = [
+    { name: 'Ashish Vinod Jangid', phones: ['+91 9768711579', '+91 8928711579'], whatsapp: '919768711579', email: 'ashishvinodjangid@gmail.com' },
+    { name: 'Nikhil Vinod Jangid', phones: ['+91 9702606993', '+91 7900003422'], whatsapp: '919702606993', email: 'Nikhiljangid6001@gmail.com' }
+  ];
+  const telHref = phone => `tel:+${String(phone).replace(/\D/g, '')}`;
+  const contactBlockHtml = () => `<div class="job-drawer-contact"><h3>Contact us about this job</h3>${CONTACT_PEOPLE.map(p => `<div class="contact-person"><h4>${safe(p.name)}</h4>
+      <p><strong>Phone:</strong> ${p.phones.map(ph => `<a href="${telHref(ph)}">${safe(ph)}</a>`).join(' / ')}</p>
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/${safe(p.whatsapp)}" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
+      <p><strong>Email:</strong> <a href="mailto:${safe(p.email)}">${safe(p.email)}</a></p></div>`).join('')}</div>`;
+
   const fillJobDrawer = card => {
     const info = card.querySelector('.job-info');
     const title = info?.querySelector('h3')?.textContent?.trim() || 'Job details';
     const fullDetails = card.querySelector('.job-full-details');
-    const contactPanel = card.querySelector('.job-contact-panel');
     if (drawerEyebrow) drawerEyebrow.textContent = 'JOB DETAILS';
     jobDrawerTitle.textContent = title;
     const jobImage = card.querySelector('.managed-job-image');
@@ -172,11 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isCareersPage) {
       jobDrawerContent.insertAdjacentHTML('beforeend', `<div class="job-apply-wrap"><button type="button" class="btn btn-primary btn-full" id="apply-job-btn">Apply for this job →</button></div>`);
     }
-    if (contactPanel) {
-      jobDrawerContent.insertAdjacentHTML('beforeend', `<div class="job-drawer-contact"><h3>Contact us about this job</h3>${contactPanel.innerHTML}</div>`);
-    } else {
-      jobDrawerContent.insertAdjacentHTML('beforeend', `<div class="job-drawer-contact"><h3>Interested in this job?</h3><p>Contact our team to confirm availability and application requirements.</p><p><strong>Phone:</strong> <a href="tel:+910000000000">+91 00000 00000</a></p><p><strong>WhatsApp:</strong> <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p><p><strong>Email:</strong> <a href="mailto:your-email@example.com">your-email@example.com</a></p></div>`);
-    }
+    const contactPanel = card.querySelector('.job-contact-panel');
+    jobDrawerContent.insertAdjacentHTML('beforeend', contactPanel
+      ? `<div class="job-drawer-contact"><h3>Contact us about this job</h3>${contactPanel.innerHTML}</div>`
+      : contactBlockHtml()); // admin-published jobs use the shared contact block below
     jobDrawerContent.scrollTop = 0;
   };
 
