@@ -1,16 +1,113 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PCC Enquiry | A.N Service &amp; Consultancy</title><link rel="stylesheet" href="css/style.css"><script src="js/script.js" defer></script></head><body>
-<header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html"><span class="brand-mark">GB</span><span>GulfBridge<span class="brand-sub">RESOURCES & WORKFORCE SOLUTIONS</span></span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button><nav class="nav"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="careers.html">Careers</a><a class="active" href="pcc.html">PCC Enquiry</a><a href="agent-login.html">Agent Login</a><a class="nav-cta" href="#pcc-form">Start Enquiry</a></nav></div></header>
-<main><section class="page-hero"><div class="container"><p class="eyebrow">DOCUMENTATION SUPPORT</p><h1>Overseas PCC enquiry</h1><p class="lead">Share the information below and our team can review your enquiry and contact you about the next steps.</p></div></section>
-<section class="section pcc-section"><div class="container form-layout"><aside class="form-aside"><p class="eyebrow">BEFORE YOU BEGIN</p><h2>Have your details ready.</h2><p>Please enter accurate information. Fields marked with * are required.</p><div class="aside-note"><span>i</span><p>This form is a sample enquiry form. Do not upload or send passport scans or other sensitive documents through this demo website.</p></div><div class="aside-contact"><small>NEED HELP?</small><strong>Speak with our team</strong><a href="tel:+910000000000">+91 00000 00000</a><small>Replace with the client's verified number.</small></div></aside>
-<form class="pcc-form" id="pcc-form"><div class="form-title"><h2>PCC registration details</h2><p>Complete the form to submit your enquiry.</p></div><div class="form-grid">
-<div class="field full"><label for="fullName">Full name *</label><input id="fullName" name="fullName" required placeholder="Enter name as per passport"></div>
-<div class="field"><label for="whatsapp">WhatsApp contact number *</label><input id="whatsapp" name="whatsapp" required type="tel" placeholder="+91 98765 43210"></div>
-<div class="field"><label for="passportCount">Number of passports held *</label><input id="passportCount" name="passportCount" type="number" min="1" required placeholder="e.g. 1"></div>
-<div class="field full"><label>Have you ever been charged with or registered for a criminal offence abroad? *</label><div class="radio-row"><label class="radio-label"><input type="radio" name="criminalOffence" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="criminalOffence" value="No" required> No</label></div></div>
-<div class="field"><label for="country">Country applying PCC for *</label><select id="country" name="country" required><option value="">Select a country</option><option>United Arab Emirates (UAE)</option><option>Saudi Arabia</option><option>Qatar</option><option>Kuwait</option><option>Oman</option><option>Bahrain</option><option>Other</option></select></div>
-<div class="field"><label for="firstEntry">Date of first entry *</label><input id="firstEntry" name="firstEntry" type="date" required></div>
-<div class="field"><label for="lastExit">Last exit date *</label><input id="lastExit" name="lastExit" type="date" required></div>
-<div class="field"><label>Do you have an overseas resident / civil ID card? *</label><div class="radio-row"><label class="radio-label"><input type="radio" name="civilId" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="civilId" value="No" required> No</label></div></div>
-<div class="field full"><label class="check-label"><input type="checkbox" id="consent" required> I confirm the information above is accurate and agree to be contacted about this enquiry. *</label></div>
-</div><div class="form-footer"><p>By submitting, you are requesting a follow-up, not applying directly to a government authority.</p><button class="btn btn-primary" type="submit">Submit Enquiry <span>→</span></button></div><div class="form-message" id="form-message" role="status"></div></form></div></section></main>
-<footer class="footer"><div class="container footer-grid"><a class="brand footer-brand" href="index.html"><span class="brand-mark">GB</span><span>GulfBridge<span class="brand-sub">RESOURCES & WORKFORCE SOLUTIONS</span></span></a><p>Connecting people, skills and opportunities across borders.</p><div class="footer-links"><a href="about.html">About</a><a href="careers.html">Careers</a><a href="pcc.html">PCC Enquiry</a><a href="contact-us.html">Contact Us</a><a href="agent-login.html">Agent Login</a><a href="admin-login.html">Admin</a></div><small>© <span class="year"></span> GulfBridge Resources. Demo website concept.</small></div></footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PCC Enquiry | A.N Service &amp; Consultancy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap"> <a class="brand" href="index.html">
+        <img class="brand-mark" src="css/logo.png" alt="A.N Resources logo">
+         <span>A.N</span><span class="brand-sub">SERVICE &amp; CONSULTANCY</span>
+      </a><button class="menu-toggle" aria-label="Toggle navigation"
+                aria-expanded="false">☰</button>
+           <nav class="nav"><a href="index.html">Home</a><a href="about.html">About Us</a><a class="active"
+          href="careers.html">Careers</a><a href="pcc.html">PCC Enquiry</a><div class="nav-mega-wrap"><button class="nav-mega-trigger" type="button" aria-expanded="false">Attestation</button><div class="nav-mega" hidden><div class="mega-feature"><p class="eyebrow">ATTESTATION</p><h3>Certificate attestation</h3><p>Find the right route for your certificate, destination country and document type.</p><a class="mega-cta" href="contact-us.html">Start my enquiry →</a></div><div class="mega-column"><h4>BY OFFICE</h4><a href="contact-us.html">HRD attestation<small>Educational certificates</small></a><a href="contact-us.html">Home attestation<small>Personal documents</small></a><a href="contact-us.html">SDM and notary<small>The other state route</small></a><a href="contact-us.html">MEA attestation<small>After the state step</small></a><a href="contact-us.html">Apostille<small>Apostille Convention countries</small></a><a href="contact-us.html">MOFA attestation<small>The last stamp, in the country</small></a><a href="contact-us.html">Equivalency and Saudi QVP<small>UAE, Oman, Saudi Arabia</small></a></div><div class="mega-column mega-countries"><h4>BY COUNTRY</h4><div class="mega-country-grid"><a href="contact-us.html">🇦🇪 UAE</a><a href="contact-us.html">🇴🇲 Oman</a><a href="contact-us.html">🇶🇦 Qatar</a><a href="contact-us.html">🇲🇾 Malaysia</a><a href="contact-us.html">🇰🇼 Kuwait</a><a href="contact-us.html">🇪🇬 Egypt</a><a href="contact-us.html">🇧🇭 Bahrain</a><a href="contact-us.html">🇱🇾 Libya</a><a href="contact-us.html">🇸🇦 Saudi Arabia</a><a href="contact-us.html">🇨🇳 China</a></div></div><div class="mega-column"><h4>BY DOCUMENT</h4><a href="contact-us.html">Marriage certificate<small>Spouse and family visas</small></a><a href="contact-us.html">Birth certificate<small>Child’s visa or school</small></a><a href="contact-us.html">Experience certificate<small>Jobs abroad, healthcare too</small></a><a href="contact-us.html">Commercial documents<small>Chamber of Commerce first</small></a><h4 class="mega-subhead">EVERY OTHER COUNTRY</h4><a href="contact-us.html">Find the route for your country</a><h4 class="mega-subhead">TRANSLATION</h4><a href="contact-us.html">Certified translation</a><a href="contact-us.html">Arabic translation</a><a href="contact-us.html">Malayalam translation</a></div></div></div><a href="contact-us.html">Contact Us</a><a
+          href="agent-login.html">Agent Login</a><a class="nav-cta" href="#pcc-form">Start Enquiry</a></nav>
+        </div>
+    </header>
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <p class="eyebrow">DOCUMENTATION SUPPORT</p>
+                <h1>Overseas PCC enquiry</h1>
+                <p class="lead">Share the information below and our team can review your enquiry and contact you about
+                    the next steps.</p>
+            </div>
+        </section>
+        <section class="section pcc-section">
+            <div class="container form-layout">
+                <aside class="form-aside">
+                    <p class="eyebrow">BEFORE YOU BEGIN</p>
+                    <h2>Have your details ready.</h2>
+                    <p>Please enter accurate information. Fields marked with * are required.</p>
+                    <div class="aside-note"><span>i</span>
+                        <p>This form is a sample enquiry form. Do not upload or send passport scans or other sensitive
+                            documents through this demo website.</p>
+                    </div>
+                    <div class="aside-contact"><small>NEED HELP?</small><strong>Speak with our team</strong><a
+                            href="tel:+910000000000">+91 00000 00000</a><small>Replace with the client's verified
+                            number.</small></div>
+                </aside>
+                <form class="pcc-form" id="pcc-form">
+                    <div class="form-title">
+                        <h2>PCC registration details</h2>
+                        <p>Complete the form to submit your enquiry.</p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="field full"><label for="fullName">Full name *</label><input id="fullName"
+                                name="fullName" required placeholder="Enter name as per passport"></div>
+                        <div class="field"><label for="whatsapp">WhatsApp contact number *</label><input id="whatsapp"
+                                name="whatsapp" required type="tel" placeholder="+91 98765 43210"></div>
+                        <div class="field"><label for="passportCount">Number of passports held *</label><input
+                                id="passportCount" name="passportCount" type="number" min="1" required
+                                placeholder="e.g. 1"></div>
+                        <div class="field full"><label>Have you ever been charged with or registered for a criminal
+                                offence abroad? *</label>
+                            <div class="radio-row"><label class="radio-label"><input type="radio" name="criminalOffence"
+                                        value="Yes" required> Yes</label><label class="radio-label"><input type="radio"
+                                        name="criminalOffence" value="No" required> No</label></div>
+                        </div>
+                        <div class="field"><label for="country">Country applying PCC for *</label><select id="country"
+                                name="country" required>
+                                <option value="">Select a country</option>
+                                <option>United Arab Emirates (UAE)</option>
+                                <option>Saudi Arabia</option>
+                                <option>Qatar</option>
+                                <option>Kuwait</option>
+                                <option>Oman</option>
+                                <option>Bahrain</option>
+                                <option>Other</option>
+                            </select></div>
+                        <div class="field"><label for="firstEntry">Date of first entry *</label><input id="firstEntry"
+                                name="firstEntry" type="date" required></div>
+                        <div class="field"><label for="lastExit">Last exit date *</label><input id="lastExit"
+                                name="lastExit" type="date" required></div>
+                        <div class="field"><label>Do you have an overseas resident / civil ID card? *</label>
+                            <div class="radio-row"><label class="radio-label"><input type="radio" name="civilId"
+                                        value="Yes" required> Yes</label><label class="radio-label"><input type="radio"
+                                        name="civilId" value="No" required> No</label></div>
+                        </div>
+                        <div class="field full"><label class="check-label"><input type="checkbox" id="consent" required>
+                                I confirm the information above is accurate and agree to be contacted about this
+                                enquiry. *</label></div>
+                    </div>
+                    <div class="form-footer">
+                        <p>By submitting, you are requesting a follow-up, not applying directly to a government
+                            authority.</p><button class="btn btn-primary" type="submit">Submit Enquiry
+                            <span>→</span></button>
+                    </div>
+                    <div class="form-message" id="form-message" role="status"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container footer-grid"><a class="brand footer-brand" href="index.html"><span
+                    class="brand-mark">GB</span><span>GulfBridge<span class="brand-sub">RESOURCES & WORKFORCE
+                        SOLUTIONS</span></span></a>
+            <p>Connecting people, skills and opportunities across borders.</p>
+            <div class="footer-links"><a href="about.html">About</a><a href="careers.html">Careers</a><a
+                    href="pcc.html">PCC Enquiry</a><a href="contact-us.html">Contact Us</a><a
+                    href="agent-login.html">Agent Login</a><a href="admin-login.html">Admin</a></div><small>© <span
+                    class="year"></span> GulfBridge Resources. Demo website concept.</small>
+        </div>
+    </footer>
+</body>
+
+</html>
