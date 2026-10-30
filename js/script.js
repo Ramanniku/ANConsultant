@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const AGENT_KEY = 'gulfbridge_demo_agent_referrals';
   const JOBS_KEY = 'gulfbridge_demo_job_profiles';
   const CONTACT_KEY = 'gulfbridge_demo_contact_enquiries';
+  const CAREER_KEY = 'gulfbridge_demo_career_applications';
   const safe = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const readList = key => {
     try {
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Admin-published jobs are shared between the public Careers page and agent dashboard in this browser demo.
   const renderJobCards = (jobs, container) => {
     if (!container) return;
-    container.innerHTML = jobs.map(job => `<article class="job-card managed-job-card">
+    container.innerHTML = jobs.map(job => `<article class="job-card managed-job-card" data-job-id="${safe(job.id)}">
       ${job.photo ? `<img class="managed-job-image" src="${job.photo}" alt="${safe(job.jobName)}">` : '<div class="job-symbol">✦</div>'}
       <div class="job-info"><span class="job-type">PUBLISHED OPPORTUNITY</span><h3>${safe(job.jobName)}</h3>
         <p>${safe(job.description || job.responsibilities || 'Contact us for more information.').replace(/\n/g, '<br>')}</p>
@@ -143,12 +144,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('job-drawer-open');
     window.setTimeout(() => { jobDrawerBackdrop.hidden = true; }, 220);
   };
-  const openJobDrawer = card => {
-    if (!jobDrawer || !jobDrawerBackdrop || !jobDrawerContent) return;
+  const isCareersPage = !!document.getElementById('job-search-input');
+  const drawerEyebrow = jobDrawer ? jobDrawer.querySelector('.eyebrow') : null;
+  let currentJobCard = null;
+  const slug = value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  const jobInfoFromCard = card => {
+    const title = card.querySelector('.job-info h3')?.textContent?.trim() || 'Job';
+    return { id: card.dataset.jobId || `sample-${slug(title)}`, title };
+  };
+
+  const fillJobDrawer = card => {
     const info = card.querySelector('.job-info');
     const title = info?.querySelector('h3')?.textContent?.trim() || 'Job details';
     const fullDetails = card.querySelector('.job-full-details');
     const contactPanel = card.querySelector('.job-contact-panel');
+    if (drawerEyebrow) drawerEyebrow.textContent = 'JOB DETAILS';
     jobDrawerTitle.textContent = title;
     const jobImage = card.querySelector('.managed-job-image');
     if (jobImage) {
@@ -158,11 +168,105 @@ document.addEventListener('DOMContentLoaded', () => {
       jobDrawerContent.innerHTML = `<div class="job-drawer-description">${info ? info.innerHTML : ''}</div>`;
       if (fullDetails) jobDrawerContent.insertAdjacentHTML('beforeend', `<div class="job-drawer-extra">${fullDetails.innerHTML}</div>`);
     }
+    // Apply button (public Careers page only)
+    if (isCareersPage) {
+      jobDrawerContent.insertAdjacentHTML('beforeend', `<div class="job-apply-wrap"><button type="button" class="btn btn-primary btn-full" id="apply-job-btn">Apply for this job →</button></div>`);
+    }
     if (contactPanel) {
       jobDrawerContent.insertAdjacentHTML('beforeend', `<div class="job-drawer-contact"><h3>Contact us about this job</h3>${contactPanel.innerHTML}</div>`);
     } else {
       jobDrawerContent.insertAdjacentHTML('beforeend', `<div class="job-drawer-contact"><h3>Interested in this job?</h3><p>Contact our team to confirm availability and application requirements.</p><p><strong>Phone:</strong> <a href="tel:+910000000000">+91 00000 00000</a></p><p><strong>WhatsApp:</strong> <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p><p><strong>Email:</strong> <a href="mailto:your-email@example.com">your-email@example.com</a></p></div>`);
     }
+    jobDrawerContent.scrollTop = 0;
+  };
+
+  // Job application form (same fields as the agent referral form + Category).
+  const showApplyForm = card => {
+    if (!card || !jobDrawerContent) return;
+    const job = jobInfoFromCard(card);
+    if (drawerEyebrow) drawerEyebrow.textContent = 'JOB APPLICATION';
+    jobDrawerContent.innerHTML = `<button type="button" class="apply-back" id="apply-back-btn">← Back to job details</button>
+      <div class="apply-banner">Applying for: <strong>${safe(job.title)}</strong></div>
+      <div class="privacy-banner"><strong>Privacy reminder:</strong> Passport information is sensitive. This is a demo form that saves to this browser only. Do not enter real passport data until a secure backend is connected.</div>
+      <form class="pcc-form referral-form apply-form" id="career-apply-form">
+        <div class="form-grid">
+          <div class="field full"><label for="applyName">Full name *</label><input id="applyName" name="candidateName" required autocomplete="name" placeholder="Name as per passport"></div>
+          <div class="field full"><label for="applyCategory">Category *</label><input id="applyCategory" name="category" type="text" required maxlength="100" placeholder="e.g. Skilled worker, Driver, Helper"></div>
+          <div class="field"><label for="applyDob">Date of birth *</label><input id="applyDob" name="dob" type="date" required></div>
+          <div class="field"><label for="applyAge">Age (auto-calculated)</label><input id="applyAge" name="age" type="number" readonly placeholder="Calculated from date of birth"></div>
+          <div class="field"><label for="applyExperience">Total experience</label><input id="applyExperience" name="experience" placeholder="e.g. 5 years construction"></div>
+          <div class="field"><label for="applyAbroad">Overseas experience</label><input id="applyAbroad" name="abroadExperience" placeholder="Country, role and duration, if any"></div>
+          <div class="field full"><label for="applySkills">Skills *</label><textarea id="applySkills" name="skills" rows="3" required placeholder="List key skills, trades, licences or certifications"></textarea></div>
+          <div class="field full"><label for="applyEducation">Education / qualification *</label><input id="applyEducation" name="education" required placeholder="Highest education or trade qualification"></div>
+          <div class="field full"><label for="applyPassport">Passport number *</label><input id="applyPassport" name="passportNumber" required autocomplete="off" placeholder="Enter passport number"></div>
+          <div class="field full"><label for="applyMarital">Marital status *</label><select id="applyMarital" name="maritalStatus" required><option value="">Select status</option><option>Married</option><option>Unmarried</option></select></div>
+          <div class="field full"><label>Has the candidate ever lost a passport? *</label>
+            <div class="radio-row"><label class="radio-label"><input type="radio" name="lostPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="lostPassport" value="No" required> No</label></div></div>
+          <div class="field full" id="applyLostField" hidden><label for="applyLostDetails">Lost passport details</label><textarea id="applyLostDetails" name="lostPassportDetails" rows="2" placeholder="If known, add approximate date, country and whether a replacement was issued"></textarea></div>
+          <div class="field full"><label>Spouse passport available? *</label>
+            <div class="radio-row"><label class="radio-label"><input type="radio" name="spousePassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="spousePassport" value="No" required> No</label><label class="radio-label"><input type="radio" name="spousePassport" value="N/A" required> N/A</label></div></div>
+          <div class="field full"><label>Parent passport available? *</label>
+            <div class="radio-row"><label class="radio-label"><input type="radio" name="parentPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="parentPassport" value="No" required> No</label></div></div>
+        </div>
+        <div class="form-footer"><p>Submit only information you are authorised to share.</p><button class="btn btn-primary" type="submit">Submit Application →</button></div>
+        <div class="form-message" id="apply-form-message" role="status"></div>
+      </form>`;
+    jobDrawerContent.scrollTop = 0;
+
+    const form = jobDrawerContent.querySelector('#career-apply-form');
+    const dob = form.querySelector('#applyDob');
+    const age = form.querySelector('#applyAge');
+    const lostField = form.querySelector('#applyLostField');
+    const lostInput = form.querySelector('#applyLostDetails');
+    const updateAge = () => {
+      if (!dob.value) { age.value = ''; return; }
+      const born = new Date(`${dob.value}T00:00:00`);
+      const today = new Date();
+      if (Number.isNaN(born.getTime()) || born > today) { age.value = ''; return; }
+      let years = today.getFullYear() - born.getFullYear();
+      const m = today.getMonth() - born.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < born.getDate())) years--;
+      age.value = String(years);
+    };
+    const t = new Date();
+    dob.max = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+    dob.addEventListener('input', updateAge);
+    dob.addEventListener('change', updateAge);
+    const updateLost = () => {
+      const selected = form.querySelector('input[name="lostPassport"]:checked')?.value;
+      lostField.hidden = selected !== 'Yes';
+      lostInput.required = selected === 'Yes';
+      if (selected !== 'Yes') lostInput.value = '';
+    };
+    form.querySelectorAll('input[name="lostPassport"]').forEach(r => r.addEventListener('change', updateLost));
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      updateAge();
+      const message = form.querySelector('#apply-form-message');
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.category = (data.category || '').trim();
+      data.age = age.value || '';
+      data.jobId = job.id;
+      data.jobTitle = job.title;
+      data.submittedAt = new Date().toISOString();
+      data.id = newId();
+      try {
+        const entries = readList(CAREER_KEY);
+        entries.unshift(data);
+        saveList(CAREER_KEY, entries);
+        jobDrawerContent.innerHTML = `<div class="apply-success"><div class="apply-success-icon">✓</div><h3>Application submitted</h3><p>Your application for <strong>${safe(job.title)}</strong> has been saved in this browser demo. The admin can view it under Career Enquiries when using this same browser profile.</p><button type="button" class="btn btn-outline" id="apply-back-btn">Back to job details</button></div>`;
+        jobDrawerContent.scrollTop = 0;
+      } catch (_) {
+        if (message) { message.className = 'form-message error'; message.textContent = 'Could not save the application in browser storage.'; }
+      }
+    });
+  };
+
+  const openJobDrawer = card => {
+    if (!jobDrawer || !jobDrawerBackdrop || !jobDrawerContent) return;
+    currentJobCard = card;
+    fillJobDrawer(card);
     jobDrawerBackdrop.hidden = false;
     requestAnimationFrame(() => {
       jobDrawer.classList.add('open');
@@ -178,6 +282,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = viewButton.closest('.job-card');
       if (card) openJobDrawer(card);
     }
+    if (event.target.closest('#apply-job-btn')) showApplyForm(currentJobCard);
+    if (event.target.closest('#apply-back-btn') && currentJobCard) fillJobDrawer(currentJobCard);
     if (event.target.closest('#job-drawer-close') || event.target.id === 'job-drawer-backdrop') closeJobDrawer();
   });
   document.addEventListener('keydown', event => {
@@ -350,6 +456,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let pccEntries = readList(PCC_KEY);
     let agentEntries = readList(AGENT_KEY);
     let contactEntries = readList(CONTACT_KEY); // ── CONTACT ──
+    let careerEntries = readList(CAREER_KEY); // ── CAREER ──
+    let careerJobFilter = 'all';
+    const careerSearch = document.getElementById('search-career-enquiries');
+    const careerEmpty = document.getElementById('career-empty-state');
+    const careerRows = document.getElementById('career-enquiry-rows');
+    const careerJobChips = document.getElementById('career-job-chips');
     const pccSearch = document.getElementById('search-enquiries');
     const agentSearch = document.getElementById('search-agent-enquiries');
     const contactSearch = document.getElementById('search-contact-enquiries'); // ── CONTACT ──
@@ -363,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.getElementById('close-modal');
 
     const showTab = view => {
-      ['pcc', 'agent', 'contact', 'jobs'].forEach(name => { // ── CONTACT ── added 'contact'
+      ['pcc', 'agent', 'contact', 'career', 'jobs'].forEach(name => { // ── CONTACT ── added 'contact'
         const section = document.getElementById(`${name}-view`);
         if (section) section.hidden = name !== view;
       });
@@ -374,7 +486,10 @@ document.addEventListener('DOMContentLoaded', () => {
         tab.tabIndex = active ? 0 : -1;
       });
     };
-    document.querySelectorAll('.dashboard-tab').forEach(tab => tab.addEventListener('click', () => showTab(tab.dataset.view)));
+    document.querySelectorAll('.dashboard-tab').forEach(tab => tab.addEventListener('click', () => {
+      if (tab.dataset.view === 'career') { careerEntries = readList(CAREER_KEY); renderCareer(); }
+      showTab(tab.dataset.view);
+    }));
 
     const renderPcc = () => {
       const query = (pccSearch?.value || '').trim().toLowerCase();
@@ -432,16 +547,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const openDetails = (kind, id) => {
       const isAgent = kind === 'agent';
       const isContact = kind === 'contact'; // ── CONTACT ──
-      const source = isAgent ? agentEntries : isContact ? contactEntries : pccEntries;
+      const isCareer = kind === 'career'; // ── CAREER ──
+      const source = isAgent ? agentEntries : isContact ? contactEntries : isCareer ? careerEntries : pccEntries;
       const entry = source.find(item => String(item.id) === String(id));
       if (!entry || !modal || !detailContent) return;
-      detailTitle.textContent = isAgent
-        ? (entry.candidateName || 'Candidate referral details')
+      detailTitle.textContent = (isAgent || isCareer)
+        ? (entry.candidateName || 'Candidate details')
         : isContact
           ? (entry.name || 'Contact enquiry details')
           : (entry.fullName || 'PCC enquiry details');
       if (isAgent) {
         detailContent.innerHTML = '<div class="detail-grid">' +
+          addDetail('Candidate name', entry.candidateName) + addDetail('Date of birth', formatDate(entry.dob)) +
+          addDetail('Age', entry.age) + addDetail('Total experience', entry.experience) +
+          addDetail('Overseas experience', entry.abroadExperience) + addDetail('Skills', entry.skills) +
+          addDetail('Education / qualification', entry.education) + addDetail('Passport number', entry.passportNumber) +
+          addDetail('Marital status', entry.maritalStatus) + addDetail('Lost passport', entry.lostPassport) +
+          addDetail('Lost passport details', entry.lostPassportDetails) + addDetail('Spouse passport available', entry.spousePassport) +
+          addDetail('Parent passport available', entry.parentPassport) + addDetail('Submitted at', formatDateTime(entry.submittedAt)) + '</div>';
+      } else if (isCareer) { // ── CAREER ──
+        detailContent.innerHTML = '<div class="detail-grid">' +
+          addDetail('Applied for (job)', entry.jobTitle) + addDetail('Category', entry.category) +
           addDetail('Candidate name', entry.candidateName) + addDetail('Date of birth', formatDate(entry.dob)) +
           addDetail('Age', entry.age) + addDetail('Total experience', entry.experience) +
           addDetail('Overseas experience', entry.abroadExperience) + addDetail('Skills', entry.skills) +
@@ -554,9 +680,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     renderAdminJobs();
 
+    // ── CAREER ── Career enquiries: applications submitted from the Careers page, grouped by job
+    const careerKeyOf = e => String(e.jobId || e.jobTitle || '');
+    const renderCareer = () => {
+      if (!careerRows) return;
+      const jobs = new Map();
+      readList(JOBS_KEY).forEach(job => jobs.set(String(job.id), { title: job.jobName, count: 0 }));
+      careerEntries.forEach(e => {
+        const key = careerKeyOf(e);
+        const item = jobs.get(key) || { title: e.jobTitle || 'Unknown job', count: 0 };
+        item.count++;
+        jobs.set(key, item);
+      });
+      if (careerJobFilter !== 'all' && !jobs.has(careerJobFilter)) careerJobFilter = 'all';
+      if (careerJobChips) {
+        const chips = [...jobs.entries()].sort((a, b) => b[1].count - a[1].count || String(a[1].title).localeCompare(String(b[1].title)));
+        careerJobChips.innerHTML = `<button type="button" class="job-chip ${careerJobFilter === 'all' ? 'active' : ''}" data-job-key="all">All jobs <span>${careerEntries.length}</span></button>` +
+          chips.map(([key, item]) => `<button type="button" class="job-chip ${careerJobFilter === key ? 'active' : ''}" data-job-key="${safe(key)}">${safe(item.title)} <span>${item.count}</span></button>`).join('');
+      }
+      const query = (careerSearch?.value || '').trim().toLowerCase();
+      const filtered = careerEntries.filter(e =>
+        (careerJobFilter === 'all' || careerKeyOf(e) === careerJobFilter) &&
+        [e.candidateName, e.jobTitle, e.category, e.skills, e.education, e.passportNumber].some(v => String(v || '').toLowerCase().includes(query)));
+      const topJob = [...jobs.values()].sort((a, b) => b.count - a.count)[0];
+      document.getElementById('career-stat-total').textContent = careerEntries.length;
+      document.getElementById('career-stat-jobs').textContent = [...jobs.values()].filter(j => j.count > 0).length;
+      document.getElementById('career-stat-top').textContent = topJob && topJob.count > 0 ? topJob.title : '—';
+      const heading = document.getElementById('career-table-title');
+      if (heading) heading.textContent = careerJobFilter === 'all' ? 'All job applications' : `Applications for ${jobs.get(careerJobFilter)?.title || 'job'}`;
+      careerRows.innerHTML = filtered.map(e => `<tr><td><strong>${safe(e.candidateName)}</strong><small>${safe(e.education)}</small></td><td>${safe(e.jobTitle || '—')}</td><td>${safe(e.category || '—')}</td><td>${safe(e.age)} / ${safe(formatDate(e.dob))}</td><td>${safe(e.experience || '—')}<small>${safe(e.abroadExperience || 'No overseas experience entered')}</small></td><td>${safe(e.maritalStatus)}</td><td>${safe(formatDateTime(e.submittedAt))}</td><td><button class="btn btn-outline btn-small view-entry" data-kind="career" data-id="${safe(e.id)}">View</button></td></tr>`).join('');
+      if (careerEmpty) {
+        careerEmpty.classList.toggle('empty-hidden', filtered.length > 0);
+        careerEmpty.querySelector('h3').textContent = careerEntries.length && !filtered.length ? 'No matching applications' : 'No career applications yet';
+        careerEmpty.querySelector('p').textContent = careerEntries.length && !filtered.length ? 'Try another job, candidate name or category.' : "Applications submitted from the Careers page will appear here in this browser's demo storage.";
+      }
+    };
+    if (careerSearch) careerSearch.addEventListener('input', renderCareer);
+    if (careerJobChips) careerJobChips.addEventListener('click', event => {
+      const chip = event.target.closest('.job-chip');
+      if (!chip) return;
+      careerJobFilter = chip.dataset.jobKey;
+      renderCareer();
+    });
+    const careerExport = document.getElementById('export-career-csv');
+    if (careerExport) careerExport.addEventListener('click', () => csvDownload(
+      'career-applications-demo.csv',
+      ['Job applied for','Category','Candidate name','DOB','Age','Experience','Overseas experience','Skills','Education','Passport number','Marital status','Lost passport','Lost passport details','Spouse passport','Parent passport','Submitted at'],
+      ['jobTitle','category','candidateName','dob','age','experience','abroadExperience','skills','education','passportNumber','maritalStatus','lostPassport','lostPassportDetails','spousePassport','parentPassport','submittedAt'],
+      careerJobFilter === 'all' ? careerEntries : careerEntries.filter(e => careerKeyOf(e) === careerJobFilter)
+    ));
+
     const logout = document.getElementById('logout');
     if (logout) logout.addEventListener('click', () => { sessionStorage.removeItem('gulfbridge_demo_admin'); window.location.href = 'admin-login.html'; });
 
-    renderPcc(); renderAgent(); renderContact(); showTab('pcc'); // ── CONTACT ── added renderContact()
+    renderPcc(); renderAgent(); renderContact(); renderCareer(); showTab('pcc'); // ── CONTACT ── added renderContact()
   }
 });

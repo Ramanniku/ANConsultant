@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Enquiry Dashboard | GulfBridge Resources</title>
+  <title>Enquiry Dashboard | A.N Service &amp; Consultancy</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
 </head>
@@ -29,7 +29,7 @@
         <div>
           <p class="eyebrow">ADMINISTRATION / ENQUIRIES</p>
           <h1>Enquiry dashboard</h1>
-          <p class="muted">Switch between PCC enquiries, agent referrals and general contact messages.</p>
+          <p class="muted">Switch between PCC enquiries, agent referrals, contact messages and career applications.</p>
         </div>
       </div>
 
@@ -40,6 +40,8 @@
                 aria-selected="false" data-view="agent">Agent Enquiries</button>
         <button class="dashboard-tab" id="tab-contact" type="button" role="tab"
                 aria-selected="false" data-view="contact">Contact Enquiries</button>
+        <button class="dashboard-tab" id="tab-career" type="button" role="tab"
+                aria-selected="false" data-view="career">Career Enquiry</button>
         <button class="dashboard-tab" id="tab-jobs" type="button" role="tab"
                 aria-selected="false" data-view="jobs">Add Jobs</button>
       </div>
@@ -183,6 +185,60 @@
         </div>
       </section>
 
+      <!-- ===================== CAREER ENQUIRIES ===================== -->
+      <section id="career-view" class="dashboard-view" role="tabpanel" aria-labelledby="tab-career" hidden>
+        <div class="dashboard-title sub-dashboard-title">
+          <div>
+            <h2>Career enquiries</h2>
+            <p class="muted">Applications submitted by users from the Careers page. Pick a job to see everyone who applied for it.</p>
+          </div>
+          <button class="btn btn-outline btn-small" id="export-career-csv">Export career CSV ↓</button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><span>Total applications</span><strong id="career-stat-total">0</strong></div>
+          <div class="stat-card"><span>Jobs with applications</span><strong id="career-stat-jobs">0</strong></div>
+          <div class="stat-card"><span>Most applied job</span><strong class="stat-text" id="career-stat-top">—</strong></div>
+        </div>
+
+        <div class="job-chip-panel">
+          <h3>Filter by job</h3>
+          <div class="job-chips" id="career-job-chips"></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h2 id="career-table-title">All job applications</h2>
+            <input id="search-career-enquiries"
+                   placeholder="Search by candidate, job, category or skills…"
+                   aria-label="Search career applications">
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Candidate</th>
+                  <th>Job applied</th>
+                  <th>Category</th>
+                  <th>Age / DOB</th>
+                  <th>Experience</th>
+                  <th>Marital status</th>
+                  <th>Submitted</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="career-enquiry-rows"></tbody>
+            </table>
+          </div>
+          <div id="career-empty-state" class="empty-state">
+            <div>▤</div>
+            <h3>No career applications yet</h3>
+            <p>Applications submitted from the Careers page will appear here in this browser's demo storage.</p>
+            <a class="text-link" href="careers.html">Open Careers page →</a>
+          </div>
+        </div>
+      </section>
+
       <!-- ===================== ADD JOBS ===================== -->
       <section id="jobs-view" class="dashboard-view" role="tabpanel" aria-labelledby="tab-jobs" hidden>
         <div class="dashboard-title sub-dashboard-title">
@@ -250,7 +306,7 @@
     </div>
   </main>
 
-  <!-- Detail modal (shared by PCC / Agent / Contact) -->
+  <!-- Detail modal (shared by PCC / Agent / Contact / Career) -->
   <div class="modal-backdrop" id="detail-modal" hidden>
     <section class="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title">
       <div class="modal-heading">

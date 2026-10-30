@@ -1,120 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Candidate Referral | GulfBridge Resources</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/script.js" defer></script>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Candidate Referral | A.N Service &amp; Consultancy</title>
+  <link rel="stylesheet" href="css/style.css"><script src="js/script.js" defer></script>
 </head>
-
 <body class="dashboard-page">
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="index.html">
-        <img class="brand-mark" src="css/logo.png" alt="A.N Resources logo">
-        <span>A.N</span><span class="brand-sub">SERVICE &amp; CONSULTANCY</span>
-      </a>
-      <div class="dashboard-actions"><a class="back-link" href="index.html">View website ↗</a><button
-          class="btn btn-outline btn-small" id="agent-logout">Log out</button></div>
+<header class="site-header"><div class="container nav-wrap">
+  <a class="brand" href="index.html"><span class="brand-mark">GB</span><span>GulfBridge<span class="brand-sub">AGENT PORTAL</span></span></a>
+  <div class="dashboard-actions"><a class="back-link" href="index.html">View website ↗</a><button class="btn btn-outline btn-small" id="agent-logout">Log out</button></div>
+</div></header>
+<main class="section"><div class="container">
+  <div class="dashboard-title"><div><p class="eyebrow">AGENT PORTAL / CANDIDATE REFERRAL</p><h1>Refer a candidate</h1><p class="muted">Enter the candidate's details carefully. Required fields are marked with *.</p></div></div>
+  <div class="privacy-banner"><strong>Privacy reminder:</strong> Passport information is sensitive. This is a demo form that saves to this browser only. Do not enter real passport data until a secure backend is connected.</div>
+  <form class="pcc-form referral-form" id="agent-referral-form">
+    <div class="form-title"><h2>Candidate information</h2><p>Provide the candidate's personal, experience and passport-related details.</p></div>
+    <div class="form-grid">
+      <div class="field full"><label for="candidateName">Full name *</label><input id="candidateName" name="candidateName" required autocomplete="name" placeholder="Name as per passport"></div>
+      <div class="field"><label for="candidateDob">Date of birth *</label><input id="candidateDob" name="dob" type="date" required></div>
+      <div class="field"><label for="candidateAge">Age (auto-calculated)</label><input id="candidateAge" name="age" type="number" readonly placeholder="Calculated from date of birth"></div>
+      <div class="field"><label for="experience">Total experience</label><input id="experience" name="experience" placeholder="e.g. 5 years construction"></div>
+      <div class="field"><label for="abroadExperience">Overseas experience</label><input id="abroadExperience" name="abroadExperience" placeholder="Country, role and duration, if any"></div>
+      <div class="field full"><label for="skills">Skills *</label><textarea id="skills" name="skills" rows="3" required placeholder="List key skills, trades, licences or certifications"></textarea></div>
+      <div class="field full"><label for="education">Education / qualification *</label><input id="education" name="education" required placeholder="Highest education or trade qualification"></div>
+      <div class="field full"><label for="candidateCategory">Category candidate wants to work in *</label><input id="candidateCategory" name="category" required placeholder="e.g. Construction, Hospitality, Driving"></div>
+      <div class="field full"><label for="passportNumber">Passport number *</label><input id="passportNumber" name="passportNumber" required autocomplete="off" placeholder="Enter passport number"></div>
+      <div class="field"><label for="maritalStatus">Marital status *</label><select id="maritalStatus" name="maritalStatus" required><option value="">Select status</option><option>Married</option><option>Unmarried</option></select></div>
+      <div class="field"><label>Has the candidate ever lost a passport? *</label><div class="radio-row"><label class="radio-label"><input type="radio" name="lostPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="lostPassport" value="No" required> No</label></div></div>
+      <div class="field full" id="lost-passport-details-field" hidden><label for="lostPassportDetails">Lost passport details</label><textarea id="lostPassportDetails" name="lostPassportDetails" rows="2" placeholder="If known, add approximate date, country and whether a replacement was issued"></textarea></div>
+      <div class="field"><label>Spouse passport available? *</label><div class="radio-row"><label class="radio-label"><input type="radio" name="spousePassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="spousePassport" value="No" required> No</label><label class="radio-label"><input type="radio" name="spousePassport" value="N/A" required> N/A</label></div></div>
+      <div class="field"><label>Parent passport available? *</label><div class="radio-row"><label class="radio-label"><input type="radio" name="parentPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="parentPassport" value="No" required> No</label></div></div>
     </div>
-  </header>
-  <main class="section">
-    <div class="container">
-      <div class="dashboard-title">
-        <div>
-          <p class="eyebrow">AGENT PORTAL</p>
-          <h1>Agent dashboard</h1>
-          <p class="muted">Browse admin-published jobs or submit a candidate referral.</p>
-        </div>
-      </div>
-      <div class="dashboard-tabs agent-dashboard-tabs" role="tablist" aria-label="Agent dashboard pages">
-        <button class="dashboard-tab active" type="button" role="tab" aria-selected="true" data-agent-view="referral">Candidate referral</button>
-        <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-agent-view="careers">Careers</button>
-      </div>
-      <section id="agent-referral-view" class="agent-dashboard-view">
-      <div class="privacy-banner"><strong>Privacy reminder:</strong> Passport information is sensitive. This is a demo
-        form that saves to this browser only. Do not enter real passport data until a secure backend is connected.</div>
-      <form class="pcc-form referral-form" id="agent-referral-form">
-        <div class="form-title">
-          <h2>Candidate information</h2>
-          <p>Provide the candidate's personal, experience and passport-related details.</p>
-        </div>
-        <div class="form-grid">
-          <div class="field full"><label for="candidateName">Full name *</label><input id="candidateName"
-              name="candidateName" required autocomplete="name" placeholder="Name as per passport"></div>
-          <div class="field"><label for="candidateDob">Date of birth *</label><input id="candidateDob" name="dob"
-              type="date" required></div>
-          <div class="field"><label for="candidateAge">Age (auto-calculated)</label><input id="candidateAge" name="age"
-              type="number" readonly placeholder="Calculated from date of birth"></div>
-          <div class="field"><label for="experience">Total experience</label><input id="experience" name="experience"
-              placeholder="e.g. 5 years construction"></div>
-          <div class="field"><label for="abroadExperience">Overseas experience</label><input id="abroadExperience"
-              name="abroadExperience" placeholder="Country, role and duration, if any"></div>
-          <div class="field full"><label for="skills">Skills *</label><textarea id="skills" name="skills" rows="3"
-              required placeholder="List key skills, trades, licences or certifications"></textarea></div>
-          <div class="field full"><label for="education">Education / qualification *</label><input id="education"
-              name="education" required placeholder="Highest education or trade qualification"></div>
-          <div class="field full"><label for="passportNumber">Passport number *</label><input id="passportNumber"
-              name="passportNumber" required autocomplete="off" placeholder="Enter passport number"></div>
-          <div class="field"><label for="maritalStatus">Marital status *</label><select id="maritalStatus"
-              name="maritalStatus" required>
-              <option value="">Select status</option>
-              <option>Married</option>
-              <option>Unmarried</option>
-            </select></div>
-          <div class="field"><label>Has the candidate ever lost a passport? *</label>
-            <div class="radio-row"><label class="radio-label"><input type="radio" name="lostPassport" value="Yes"
-                  required> Yes</label><label class="radio-label"><input type="radio" name="lostPassport" value="No"
-                  required> No</label></div>
-          </div>
-          <div class="field full" id="lost-passport-details-field" hidden><label for="lostPassportDetails">Lost passport
-              details</label><textarea id="lostPassportDetails" name="lostPassportDetails" rows="2"
-              placeholder="If known, add approximate date, country and whether a replacement was issued"></textarea>
-          </div>
-          <div class="field"><label>Spouse passport available? *</label>
-            <div class="radio-row"><label class="radio-label"><input type="radio" name="spousePassport" value="Yes"
-                  required> Yes</label><label class="radio-label"><input type="radio" name="spousePassport" value="No"
-                  required> No</label><label class="radio-label"><input type="radio" name="spousePassport" value="N/A"
-                  required> N/A</label></div>
-          </div>
-          <div class="field"><label>Parent passport available? *</label>
-            <div class="radio-row"><label class="radio-label"><input type="radio" name="parentPassport" value="Yes"
-                  required> Yes</label><label class="radio-label"><input type="radio" name="parentPassport" value="No"
-                  required> No</label></div>
-          </div>
-        </div>
-        <div class="form-footer">
-          <p>Submit only information you are authorised to share on behalf of the candidate.</p><button
-            class="btn btn-primary" type="submit">Submit Referral →</button>
-        </div>
-        <div class="form-message" id="agent-form-message" role="status"></div>
-      </form>
-      </section>
-      <section id="agent-careers-view" class="agent-dashboard-view" hidden>
-        <div class="dashboard-title sub-dashboard-title"><div><h2>Published careers</h2><p class="muted">Jobs published by the admin are listed here.</p></div><span class="muted" id="agent-job-count">0 jobs</span></div>
-        <div id="agent-jobs-list" class="managed-jobs-list agent-jobs-list"></div>
-        <div id="agent-jobs-empty" class="empty-state"><div>▤</div><h3>No jobs published yet</h3><p>Published jobs will appear here when the admin adds them.</p></div>
-      </section>
-    </div>
-  </main>
-  <!-- Shared job-details drawer used by the Careers cards in the agent dashboard. -->
-  <div class="job-drawer-backdrop" id="job-drawer-backdrop" hidden></div>
-  <aside class="job-drawer" id="job-drawer" aria-labelledby="job-drawer-title" aria-hidden="true" tabindex="-1">
-    <div class="job-drawer-header">
-      <div>
-        <p class="eyebrow">JOB DETAILS</p>
-        <h2 id="job-drawer-title">Job profile</h2>
-      </div>
-      <button class="icon-button" id="job-drawer-close" type="button" aria-label="Close job details">×</button>
-    </div>
-    <div class="job-drawer-content" id="job-drawer-content"></div>
-  </aside>
-  <footer class="footer">
-    <div class="container footer-grid"><small>© <span class="year"></span> A.N service &amp; consultancy. agent
-        portal</small></div>
-  </footer>
-</body>
-
-</html>
+    <div class="form-footer"><p>Submit only information you are authorised to share on behalf of the candidate.</p><button class="btn btn-primary" type="submit">Submit Referral →</button></div>
+    <div class="form-message" id="agent-form-message" role="status"></div>
+  </form>
+</div></main>
+<footer class="footer"><div class="container footer-grid"><small>© <span class="year"></span> GulfBridge Resources · Demo agent portal</small></div></footer>
+</body></html>
