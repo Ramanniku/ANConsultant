@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterJobs = () => {
     if (!jobSearchInput) return;
     const query = jobSearchInput.value.trim().toLocaleLowerCase();
-    const cards = [...document.querySelectorAll('#jobs-list .job-card, #managed-jobs-list .job-card')];
+    const cards = [...document.querySelectorAll('#jobs-list .job-card, #managed-jobs-list .job-card, #category-slider .job-card')];
     let visible = 0;
     cards.forEach(card => {
       const title = card.querySelector('.job-info h3')?.textContent?.toLocaleLowerCase() || '';
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="field full"><label for="applyMarital">Marital status *</label><select id="applyMarital" name="maritalStatus" required><option value="">Select status</option><option>Married</option><option>Unmarried</option></select></div>
           <div class="field full"><label>Has the candidate ever lost a passport? *</label>
             <div class="radio-row"><label class="radio-label"><input type="radio" name="lostPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="lostPassport" value="No" required> No</label></div></div>
-          <div class="field full" id="applyLostField" hidden><label for="applyLostDetails">Lost passport details</label><textarea id="applyLostDetails" name="lostPassportDetails" rows="2" placeholder="If known, add approximate date, country and whether a replacement was issued"></textarea></div>
+          <div class="field full" id="applyLostField" hidden><label for="applyLostDetails">Lost passport details(If Any)</label><textarea id="applyLostDetails" name="lostPassportDetails" rows="2" placeholder="If known, add approximate date, country and whether a replacement was issued"></textarea></div>
           <div class="field full"><label>Spouse passport available? *</label>
             <div class="radio-row"><label class="radio-label"><input type="radio" name="spousePassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="spousePassport" value="No" required> No</label><label class="radio-label"><input type="radio" name="spousePassport" value="N/A" required> N/A</label></div></div>
           <div class="field full"><label>Parent passport available? *</label>
@@ -744,4 +744,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderPcc(); renderAgent(); renderContact(); renderCareer(); showTab('pcc'); // ── CONTACT ── added renderContact()
   }
+});
+
+// Careers: horizontal category slider (arrows + swipe)
+document.addEventListener('DOMContentLoaded', () => {
+  const track = document.getElementById('category-slider');
+  const prev = document.getElementById('category-prev');
+  const next = document.getElementById('category-next');
+  if (!track || !prev || !next) return;
+  const cardStep = () => {
+    const card = track.querySelector('.job-card:not([hidden])');
+    if (!card) return track.clientWidth;
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    const width = card.getBoundingClientRect().width + gap;
+    return width * Math.max(1, Math.floor(track.clientWidth / width));
+  };
+  const update = () => {
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+  };
+  prev.addEventListener('click', () => track.scrollBy({ left: -cardStep(), behavior: 'smooth' }));
+  next.addEventListener('click', () => track.scrollBy({ left: cardStep(), behavior: 'smooth' }));
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  // When the job search hides or shows cards, go back to the start and refresh the arrows.
+  new MutationObserver(() => { track.scrollTo({ left: 0, behavior: 'auto' }); update(); })
+    .observe(track, { attributes: true, attributeFilter: ['hidden'], subtree: true });
+  update();
 });

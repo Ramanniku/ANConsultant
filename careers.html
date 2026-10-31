@@ -24,132 +24,173 @@
     </div>
   </header>
   <main>
-    <section class="page-hero">
+    <section class="page-hero careers-hero">
       <div class="container">
         <p class="eyebrow">CAREERS</p>
         <h1>Your skills can take you places.</h1>
-        <p class="lead">Browse example roles and contact our team to confirm current vacancies, eligibility and
-          application steps.</p>
+        <p class="lead">Choose a job category or a latest opening, apply directly, or contact our team to confirm current
+          vacancies, eligibility and application steps.</p>
       </div>
     </section>
-    <section class="section soft-bg" id="openings">
+    <section class="section careers-bg" id="openings">
       <div class="container">
         <div class="jobs-heading">
           <div>
             <p class="eyebrow">OPPORTUNITIES</p>
-            <h2>Featured job openings</h2>
+            <h2>Job openings</h2>
           </div>
-          <p class="muted">Sample listings — confirm availability before applying.</p>
+          <p class="muted">Confirm availability with our team before applying.</p>
         </div>
         <div class="job-search" role="search"><label for="job-search-input">Search jobs by name</label>
           <div class="job-search-control"><span aria-hidden="true">⌕</span><input id="job-search-input" type="search"
-              placeholder="e.g. Warehouse Assistant" autocomplete="off"><button id="clear-job-search"
+              placeholder="e.g. Warehouse Worker" autocomplete="off"><button id="clear-job-search"
               class="btn btn-outline btn-small" type="button">Clear</button></div>
           <p class="job-search-hint">Type a job title to filter the available listings.</p>
         </div>
         <p id="job-search-empty" class="job-search-empty" role="status" hidden>No jobs match your search. Try another
           job name.</p>
-        <div id="managed-jobs-list" class="managed-jobs-list" aria-live="polite"></div>
-        <div class="jobs-list" id="jobs-list">
-          <article class="job-card">
-            <div class="job-symbol">⌂</div>
-            <div class="job-info"><span class="job-type">FACILITIES</span>
-              <h3>Facility Cleaner</h3>
-              <p>Support daily cleaning and upkeep of offices, commercial spaces or facilities. Attention to detail and
-                reliability are important.</p>
-              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: As required by
-                  employer</span></div>
-            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
-            <div class="job-contact-panel" hidden>
-              <div class="contact-person">
-                <h4>Ashish Vinod Jangid</h4>
-                <p><strong>Phone:</strong> <a href="tel:+919768711579">+91 9768711579</a> / <a href="tel:+918928711579">+91 8928711579</a></p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/919768711579" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:ashishvinodjangid@gmail.com">ashishvinodjangid@gmail.com</a></p>
-              </div>
-              <div class="contact-person">
-                <h4>Nikhil Vinod Jangid</h4>
-                <p><strong>Phone:</strong> <a href="tel:+919702606993">+91 9702606993</a> / <a href="tel:+917900003422">+91 7900003422</a></p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/919702606993" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:Nikhiljangid6001@gmail.com">Nikhiljangid6001@gmail.com</a></p>
-              </div>
+
+        <div class="managed-block" id="latest-openings">
+          <h3 class="block-title">Latest openings</h3>
+          <div id="managed-jobs-list" class="managed-jobs-list" aria-live="polite"></div>
+        </div>
+
+        <div class="category-block" id="categories">
+          <div class="category-head">
+            <div>
+              <h3 class="block-title">Browse by category</h3>
+              <p class="muted">Swipe or use the arrows. Open any role to apply.</p>
             </div>
+            <div class="slider-controls">
+              <button class="slider-btn" id="category-prev" type="button" aria-label="Previous categories">‹</button>
+              <button class="slider-btn" id="category-next" type="button" aria-label="Next categories">›</button>
+            </div>
+          </div>
+          <div class="job-slider">
+            <div class="job-slider-track" id="category-slider" tabindex="0" aria-label="Job categories, scroll horizontally">
+          <article class="job-card">
+            <div class="job-symbol">◆</div>
+            <div class="job-info"><span class="job-type">GENERAL</span>
+              <h3>General Worker</h3>
+              <p>Support day-to-day site and workplace tasks, including loading, carrying and basic assistance to teams.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Entry-level may be considered</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">▦</div>
+            <div class="job-info"><span class="job-type">INDUSTRIAL</span>
+              <h3>Industrial Worker</h3>
+              <p>Work in factories and plants on production, assembly, packing and general industrial tasks.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Employer dependent</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
           </article>
           <article class="job-card">
             <div class="job-symbol">⚙</div>
             <div class="job-info"><span class="job-type">TECHNICAL</span>
-              <h3>General Helper</h3>
-              <p>Assist teams with material handling, basic site tasks and maintaining an organised work area. Physical
-                fitness may be required.</p>
-              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Entry-level may be
-                  considered</span></div>
+              <h3>Technical Worker</h3>
+              <p>Skilled trade and technical support roles such as maintenance, installation and repair work.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Trade experience preferred</span></div>
             </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
-            <div class="job-contact-panel" hidden>
-              <div class="contact-person">
-                <h4>Ashish Vinod Jangid</h4>
-                <p><strong>Phone:</strong> <a href="tel:+919768711579">+91 9768711579</a> / <a href="tel:+918928711579">+91 8928711579</a></p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/919768711579" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:ashishvinodjangid@gmail.com">ashishvinodjangid@gmail.com</a></p>
-              </div>
-              <div class="contact-person">
-                <h4>Nikhil Vinod Jangid</h4>
-                <p><strong>Phone:</strong> <a href="tel:+919702606993">+91 9702606993</a> / <a href="tel:+917900003422">+91 7900003422</a></p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/919702606993" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:Nikhiljangid6001@gmail.com">Nikhiljangid6001@gmail.com</a></p>
-              </div>
-            </div>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">◉</div>
+            <div class="job-info"><span class="job-type">OPERATOR</span>
+              <h3>Machine Operator</h3>
+              <p>Operate and monitor production machinery while following safety and quality procedures.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Employer dependent</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">✦</div>
+            <div class="job-info"><span class="job-type">OPERATOR</span>
+              <h3>CNC Operator</h3>
+              <p>Set up, run and check parts on CNC machines, reading drawings and job instructions.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: CNC experience as required by employer</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">▲</div>
+            <div class="job-info"><span class="job-type">TRANSPORT</span>
+              <h3>Heavy Vehicle Operator</h3>
+              <p>Drive and operate trucks, trailers and heavy equipment safely on sites and roads.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Licence and experience as required by employer</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">■</div>
+            <div class="job-info"><span class="job-type">LOGISTICS</span>
+              <h3>Forklift Operator</h3>
+              <p>Load, unload, move and stack goods using forklifts in warehouses and yards.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Employer dependent</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">⌂</div>
+            <div class="job-info"><span class="job-type">FACILITIES</span>
+              <h3>Cleaner</h3>
+              <p>Keep offices, malls, hotels and commercial facilities clean, tidy and hygienic.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Entry-level may be considered</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">●</div>
+            <div class="job-info"><span class="job-type">RETAIL</span>
+              <h3>Supermarket Worker</h3>
+              <p>Stock shelves, support counters and help keep a supermarket organised and customer-ready.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Employer dependent</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
           </article>
           <article class="job-card">
             <div class="job-symbol">▤</div>
             <div class="job-info"><span class="job-type">LOGISTICS</span>
-              <h3>Warehouse Assistant</h3>
-              <p>Help receive, organise and dispatch goods while following workplace safety and inventory procedures.
-              </p>
-              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Employer dependent</span>
-              </div>
+              <h3>Warehouse Worker</h3>
+              <p>Receive, organise, pack and dispatch goods following safety and inventory procedures.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Employer dependent</span></div>
             </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
-            <div class="job-contact-panel" hidden>
-              <div class="contact-person">
-                <h4>Ashish Vinod Jangid</h4>
-                <p><strong>Phone:</strong> <a href="tel:+919768711579">+91 9768711579</a> / <a href="tel:+918928711579">+91 8928711579</a></p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/919768711579" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:ashishvinodjangid@gmail.com">ashishvinodjangid@gmail.com</a></p>
-              </div>
-              <div class="contact-person">
-                <h4>Nikhil Vinod Jangid</h4>
-                <p><strong>Phone:</strong> <a href="tel:+919702606993">+91 9702606993</a> / <a href="tel:+917900003422">+91 7900003422</a></p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/919702606993" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:Nikhiljangid6001@gmail.com">Nikhiljangid6001@gmail.com</a></p>
-              </div>
-            </div>
           </article>
           <article class="job-card">
-            <div class="job-symbol">▦</div>
+            <div class="job-symbol">❖</div>
             <div class="job-info"><span class="job-type">HOSPITALITY</span>
-              <h3>Kitchen Steward</h3>
-              <p>Support kitchen operations by cleaning work areas, washing utensils and following hygiene requirements.
-              </p>
-              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Employer dependent</span>
-              </div>
+              <h3>Kitchen Worker</h3>
+              <p>Assist with food preparation, cleaning work areas and washing utensils in kitchens.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Employer dependent</span></div>
             </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
-            <div class="job-contact-panel" hidden>
-              <div class="contact-person">
-                <h4>Ashish Vinod Jangid</h4>
-                <p><strong>Phone:</strong> <a href="tel:+919768711579">+91 9768711579</a> / <a href="tel:+918928711579">+91 8928711579</a></p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/919768711579" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:ashishvinodjangid@gmail.com">ashishvinodjangid@gmail.com</a></p>
-              </div>
-              <div class="contact-person">
-                <h4>Nikhil Vinod Jangid</h4>
-                <p><strong>Phone:</strong> <a href="tel:+919702606993">+91 9702606993</a> / <a href="tel:+917900003422">+91 7900003422</a></p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/919702606993" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></p>
-                <p><strong>Email:</strong> <a href="mailto:Nikhiljangid6001@gmail.com">Nikhiljangid6001@gmail.com</a></p>
-              </div>
-            </div>
           </article>
+          <article class="job-card">
+            <div class="job-symbol">✚</div>
+            <div class="job-info"><span class="job-type">HOSPITALITY</span>
+              <h3>Hotel Management</h3>
+              <p>Hotel operations, front office, housekeeping and supervisory roles.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Experience as required by employer</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">⬢</div>
+            <div class="job-info"><span class="job-type">FOOD PROCESSING</span>
+              <h3>Beef Butcher</h3>
+              <p>Cut, trim and prepare beef products while following hygiene and handling standards.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Butchery experience preferred</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">⬣</div>
+            <div class="job-info"><span class="job-type">FOOD PROCESSING</span>
+              <h3>Chicken Butcher</h3>
+              <p>Cut, clean and prepare poultry products while following hygiene and handling standards.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: Butchery experience preferred</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+          <article class="job-card">
+            <div class="job-symbol">＋</div>
+            <div class="job-info"><span class="job-type">OTHER</span>
+              <h3>Other Roles</h3>
+              <p>Don&#x27;t see your trade? Tell us your skills and we will check for suitable openings.</p>
+              <div class="job-meta"><span>Location: UAE / Gulf region</span><span>Experience: As required by employer</span></div>
+            </div><button class="btn btn-primary btn-small view-job-btn" type="button">View Details</button>
+          </article>
+            </div>
+          </div>
         </div>
-        <!-- <p class="notice"><strong>Important:</strong> These are example listings for the website preview, not confirmed
-          vacancies. Replace them with verified roles and your client's real contact details before publishing.</p> -->
       </div>
     </section>
   </main>
