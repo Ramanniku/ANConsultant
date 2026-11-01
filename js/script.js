@@ -189,40 +189,73 @@ document.addEventListener('DOMContentLoaded', () => {
     jobDrawerContent.scrollTop = 0;
   };
 
-  // Job application form (same fields as the agent referral form + Category).
+  // Job application form: opens as a FULL-SCREEN page (same fields as the agent referral form + Category).
   const showApplyForm = card => {
-    if (!card || !jobDrawerContent) return;
+    if (!card) return;
     const job = jobInfoFromCard(card);
-    if (drawerEyebrow) drawerEyebrow.textContent = 'JOB APPLICATION';
-    jobDrawerContent.innerHTML = `<button type="button" class="apply-back" id="apply-back-btn">← Back to job details</button>
-      <div class="apply-banner">Applying for: <strong>${safe(job.title)}</strong></div>
-      <div class="privacy-banner"><strong>Privacy reminder:</strong> Passport information is sensitive. This is a demo form that saves to this browser only. Do not enter real passport data until a secure backend is connected.</div>
-      <form class="pcc-form referral-form apply-form" id="career-apply-form">
-        <div class="form-grid">
-          <div class="field full"><label for="applyName">Full name *</label><input id="applyName" name="candidateName" required autocomplete="name" placeholder="Name as per passport"></div>
-          <div class="field full"><label for="applyCategory">Category *</label><input id="applyCategory" name="category" type="text" required maxlength="100" placeholder="e.g. Skilled worker, Driver, Helper"></div>
-          <div class="field"><label for="applyDob">Date of birth *</label><input id="applyDob" name="dob" type="date" required></div>
-          <div class="field"><label for="applyAge">Age (auto-calculated)</label><input id="applyAge" name="age" type="number" readonly placeholder="Calculated from date of birth"></div>
-          <div class="field"><label for="applyExperience">Total experience</label><input id="applyExperience" name="experience" placeholder="e.g. 5 years construction"></div>
-          <div class="field"><label for="applyAbroad">Overseas experience</label><input id="applyAbroad" name="abroadExperience" placeholder="Country, role and duration, if any"></div>
-          <div class="field full"><label for="applySkills">Skills *</label><textarea id="applySkills" name="skills" rows="3" required placeholder="List key skills, trades, licences or certifications"></textarea></div>
-          <div class="field full"><label for="applyEducation">Education / qualification *</label><input id="applyEducation" name="education" required placeholder="Highest education or trade qualification"></div>
-          <div class="field full"><label for="applyPassport">Passport number *</label><input id="applyPassport" name="passportNumber" required autocomplete="off" placeholder="Enter passport number"></div>
-          <div class="field full"><label for="applyMarital">Marital status *</label><select id="applyMarital" name="maritalStatus" required><option value="">Select status</option><option>Married</option><option>Unmarried</option></select></div>
-          <div class="field full"><label>Has the candidate ever lost a passport? *</label>
-            <div class="radio-row"><label class="radio-label"><input type="radio" name="lostPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="lostPassport" value="No" required> No</label></div></div>
-          <div class="field full" id="applyLostField" hidden><label for="applyLostDetails">Lost passport details(If Any)</label><textarea id="applyLostDetails" name="lostPassportDetails" rows="2" placeholder="If known, add approximate date, country and whether a replacement was issued"></textarea></div>
-          <div class="field full"><label>Spouse passport available? *</label>
-            <div class="radio-row"><label class="radio-label"><input type="radio" name="spousePassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="spousePassport" value="No" required> No</label><label class="radio-label"><input type="radio" name="spousePassport" value="N/A" required> N/A</label></div></div>
-          <div class="field full"><label>Parent passport available? *</label>
-            <div class="radio-row"><label class="radio-label"><input type="radio" name="parentPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="parentPassport" value="No" required> No</label></div></div>
-        </div>
-        <div class="form-footer"><p>Submit only information you are authorised to share.</p><button class="btn btn-primary" type="submit">Submit Application →</button></div>
-        <div class="form-message" id="apply-form-message" role="status"></div>
-      </form>`;
-    jobDrawerContent.scrollTop = 0;
+    closeJobDrawer();
+    document.getElementById('apply-overlay')?.remove();
 
-    const form = jobDrawerContent.querySelector('#career-apply-form');
+    const overlay = document.createElement('div');
+    overlay.id = 'apply-overlay';
+    overlay.className = 'apply-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'apply-title');
+    overlay.innerHTML = `
+      <div class="apply-topbar"><div class="container nav-wrap">
+        <a class="brand" href="index.html"><img class="brand-mark" src="css/logo.png" alt="A.N Resources logo"><span>A.N</span><span class="brand-sub">SERVICE &amp; CONSULTANCY</span></a>
+        <button type="button" class="apply-close" id="apply-close-btn">← Back to openings</button>
+      </div></div>
+      <div class="container apply-body" id="apply-body">
+        <div class="apply-intro">
+          <p class="eyebrow">CAREERS / JOB APPLICATION</p>
+          <h1 id="apply-title">Apply for ${safe(job.title)}</h1>
+          <p class="lead">Fill in your details carefully. Required fields are marked with *. Our team will contact you to confirm vacancies, eligibility and next steps.</p>
+        </div>
+        <div class="privacy-banner"><strong>Privacy reminder:</strong> Passport information is sensitive. This is a demo form that saves to this browser only. Do not enter real passport data until a secure backend is connected.</div>
+        <form class="pcc-form referral-form apply-form apply-form-page" id="career-apply-form">
+          <div class="apply-banner">Applying for: <strong>${safe(job.title)}</strong></div>
+          <div class="form-title"><h2>Candidate information</h2><p>Provide your personal, experience and passport-related details.</p></div>
+          <div class="form-grid">
+            <div class="field full"><label for="applyName">Full name *</label><input id="applyName" name="candidateName" required autocomplete="name" placeholder="Name as per passport"></div>
+            <div class="field full"><label for="applyCategory">Category *</label><input id="applyCategory" name="category" type="text" required maxlength="100" placeholder="e.g. Skilled worker, Driver, Helper"></div>
+            <div class="field"><label for="applyDob">Date of birth *</label><input id="applyDob" name="dob" type="date" required></div>
+            <div class="field"><label for="applyAge">Age (auto-calculated)</label><input id="applyAge" name="age" type="number" readonly placeholder="Calculated from date of birth"></div>
+            <div class="field"><label for="applyExperience">Total experience</label><input id="applyExperience" name="experience" placeholder="e.g. 5 years construction"></div>
+            <div class="field"><label for="applyAbroad">Overseas experience</label><input id="applyAbroad" name="abroadExperience" placeholder="Country, role and duration, if any"></div>
+            <div class="field full"><label for="applySkills">Skills *</label><textarea id="applySkills" name="skills" rows="3" required placeholder="List key skills, trades, licences or certifications"></textarea></div>
+            <div class="field full"><label for="applyEducation">Education / qualification *</label><input id="applyEducation" name="education" required placeholder="Highest education or trade qualification"></div>
+            <div class="field full"><label for="applyPassport">Passport number *</label><input id="applyPassport" name="passportNumber" required autocomplete="off" placeholder="Enter passport number"></div>
+            <div class="field"><label for="applyMarital">Marital status *</label><select id="applyMarital" name="maritalStatus" required><option value="">Select status</option><option>Married</option><option>Unmarried</option></select></div>
+            <div class="field"><label>Has the candidate ever lost a passport? *</label>
+              <div class="radio-row"><label class="radio-label"><input type="radio" name="lostPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="lostPassport" value="No" required> No</label></div></div>
+            <div class="field full" id="applyLostField" hidden><label for="applyLostDetails">Lost passport details (if any)</label><textarea id="applyLostDetails" name="lostPassportDetails" rows="2" placeholder="If known, add approximate date, country and whether a replacement was issued"></textarea></div>
+            <div class="field"><label>Spouse passport available? *</label>
+              <div class="radio-row"><label class="radio-label"><input type="radio" name="spousePassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="spousePassport" value="No" required> No</label><label class="radio-label"><input type="radio" name="spousePassport" value="N/A" required> N/A</label></div></div>
+            <div class="field"><label>Parent passport available? *</label>
+              <div class="radio-row"><label class="radio-label"><input type="radio" name="parentPassport" value="Yes" required> Yes</label><label class="radio-label"><input type="radio" name="parentPassport" value="No" required> No</label></div></div>
+          </div>
+          <div class="form-footer"><p>Submit only information you are authorised to share.</p><button class="btn btn-primary" type="submit">Submit Application →</button></div>
+          <div class="form-message" id="apply-form-message" role="status"></div>
+        </form>
+      </div>`;
+    document.body.appendChild(overlay);
+    document.body.classList.add('apply-open');
+    requestAnimationFrame(() => overlay.classList.add('open'));
+    overlay.scrollTop = 0;
+
+    const onKey = e => { if (e.key === 'Escape') closeApply(); };
+    function closeApply() {
+      overlay.classList.remove('open');
+      document.body.classList.remove('apply-open');
+      document.removeEventListener('keydown', onKey);
+      window.setTimeout(() => overlay.remove(), 250);
+    }
+    document.addEventListener('keydown', onKey);
+    overlay.querySelector('#apply-close-btn').addEventListener('click', closeApply);
+
+    const form = overlay.querySelector('#career-apply-form');
     const dob = form.querySelector('#applyDob');
     const age = form.querySelector('#applyAge');
     const lostField = form.querySelector('#applyLostField');
@@ -264,8 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const entries = readList(CAREER_KEY);
         entries.unshift(data);
         saveList(CAREER_KEY, entries);
-        jobDrawerContent.innerHTML = `<div class="apply-success"><div class="apply-success-icon">✓</div><h3>Application submitted</h3><p>Your application for <strong>${safe(job.title)}</strong> has been saved in this browser demo. The admin can view it under Career Enquiries when using this same browser profile.</p><button type="button" class="btn btn-outline" id="apply-back-btn">Back to job details</button></div>`;
-        jobDrawerContent.scrollTop = 0;
+        overlay.querySelector('#apply-body').innerHTML = `<div class="apply-success apply-success-full"><div class="apply-success-icon">✓</div><h3>Application submitted</h3><p>Your application for <strong>${safe(job.title)}</strong> has been saved in this browser demo. The admin can view it under Career Enquiries when using this same browser profile.</p><button type="button" class="btn btn-primary" id="apply-done-btn">Back to openings</button></div>`;
+        overlay.scrollTop = 0;
+        overlay.querySelector('#apply-done-btn').addEventListener('click', closeApply);
       } catch (_) {
         if (message) { message.className = 'form-message error'; message.textContent = 'Could not save the application in browser storage.'; }
       }
@@ -292,7 +326,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (card) openJobDrawer(card);
     }
     if (event.target.closest('#apply-job-btn')) showApplyForm(currentJobCard);
-    if (event.target.closest('#apply-back-btn') && currentJobCard) fillJobDrawer(currentJobCard);
     if (event.target.closest('#job-drawer-close') || event.target.id === 'job-drawer-backdrop') closeJobDrawer();
   });
   document.addEventListener('keydown', event => {

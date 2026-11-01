@@ -465,7 +465,11 @@
 .page-hero.careers-hero .eyebrow{color:#b9d5ff}
 .page-hero.careers-hero h1{color:#fff}
 .page-hero.careers-hero .lead{color:#e2eaf5}
-.careers-bg{background:#eef4fb url('careers-bg.svg') center bottom/cover no-repeat}
+.careers-bg{--careers-photo:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2200&q=88');background:linear-gradient(180deg,rgba(8,25,48,.88) 0%,rgba(11,34,63,.82) 100%),var(--careers-photo) center/cover fixed no-repeat #0b1c30}
+.careers-bg .jobs-heading h2,.careers-bg .block-title{color:#fff}
+.careers-bg .eyebrow{color:#b9d5ff}
+.careers-bg .muted{color:#cfdcec}
+@supports(-webkit-touch-callout:none){.careers-bg{background-attachment:scroll}}
 .block-title{font-size:1.25rem;margin:0 0 4px}
 .managed-block{margin-bottom:46px}
 .managed-block .block-title{margin-bottom:16px}
@@ -473,3 +477,114 @@
 .category-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px}
 .category-head .muted{margin:0;font-size:.9rem}
 @media(max-width:700px){.page-hero.careers-hero{padding:56px 0 52px}.category-head{align-items:flex-start}}
+
+/* ===== Career apply: full-screen form page ===== */
+body.apply-open{overflow:hidden}
+.apply-overlay{
+  --apply-bg:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2200&q=88');
+  position:fixed;inset:0;z-index:300;overflow-y:auto;
+  background:linear-gradient(135deg,rgba(8,25,48,.90) 0%,rgba(11,34,63,.78) 55%,rgba(13,42,76,.60) 100%),var(--apply-bg) center 46%/cover no-repeat #0b1c30;
+  opacity:0;transition:opacity .25s;
+}
+.apply-overlay.open{opacity:1}
+.apply-topbar{position:sticky;top:0;z-index:2;height:72px;background:#0f2135;border-bottom:1px solid #1d334d;box-shadow:0 5px 22px rgba(0,0,0,.25)}
+.apply-topbar .nav-wrap{height:100%}
+.apply-topbar .brand,.apply-topbar .brand span{color:#fff}
+.apply-topbar .brand-sub{color:#ded52a}
+.apply-close{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:9px 15px;font:700 .85rem 'DM Sans',sans-serif;cursor:pointer;transition:background .2s}
+.apply-close:hover{background:rgba(255,255,255,.18)}
+.apply-body{max-width:860px;padding:46px 0 80px}
+.apply-intro .eyebrow{color:#b9d5ff}
+.apply-intro h1{color:#fff;font-size:clamp(2rem,4vw,3.1rem);margin-bottom:12px}
+.apply-intro .lead{color:#e2eaf5;max-width:640px;margin-bottom:22px}
+.apply-overlay .privacy-banner{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#eaf1fb;backdrop-filter:blur(8px);border-radius:10px;padding:13px 16px;font-size:.85rem;margin-bottom:20px}
+.apply-overlay .apply-form-page{background:rgba(255,255,255,.95);backdrop-filter:blur(14px) saturate(140%);border:1px solid rgba(255,255,255,.6);border-radius:20px;padding:34px;box-shadow:0 28px 70px rgba(4,14,28,.45);margin-top:0}
+.apply-overlay .apply-banner{background:#eef5ff;border:1px solid #d8e7ff;color:var(--navy);border-radius:10px;padding:12px 14px;font-size:.92rem;margin-bottom:22px}
+.apply-overlay .apply-form .form-grid{grid-template-columns:1fr 1fr}
+.apply-overlay .apply-form .field.full{grid-column:1/-1}
+.apply-overlay .field[hidden]{display:none}
+.apply-success-full{background:rgba(255,255,255,.95);border-radius:20px;padding:50px 30px;box-shadow:0 28px 70px rgba(4,14,28,.45)}
+@media(max-width:700px){
+  .apply-body{padding:30px 0 56px}
+  .apply-overlay .apply-form-page{padding:22px;border-radius:16px}
+  .apply-overlay .apply-form .form-grid{grid-template-columns:1fr}
+  .apply-overlay .apply-form .field.full{grid-column:auto}
+  .apply-topbar .brand-sub{display:none}
+}
+
+/* ===== Careers page: glass-style cards that match the blue photo background ===== */
+.careers-bg .job-search{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(4,14,28,.25)}
+.careers-bg .job-search>label{color:#fff}
+.careers-bg .job-search-control>span{color:#9fc2ff}
+.careers-bg .job-search-control input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff}
+.careers-bg .job-search-control input::placeholder{color:rgba(230,238,250,.6)}
+.careers-bg .job-search-control input:focus{background:rgba(255,255,255,.16);border-color:#9fc2ff;box-shadow:0 0 0 3px rgba(159,194,255,.3)}
+.careers-bg .job-search .btn-outline{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);color:#fff}
+.careers-bg .job-search .btn-outline:hover{background:rgba(255,255,255,.18);border-color:#fff;color:#fff}
+.careers-bg .job-search-hint{color:#cfdcec}
+.careers-bg .job-search-empty{background:rgba(255,255,255,.08);border:1px dashed rgba(255,255,255,.35);color:#e2eaf5}
+.careers-bg .job-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 12px 32px rgba(4,14,28,.28)}
+.careers-bg .job-card:hover{background:rgba(255,255,255,.14);border-color:rgba(159,194,255,.65);box-shadow:0 18px 40px rgba(4,14,28,.4)}
+.careers-bg .job-card .job-info h3{color:#fff}
+.careers-bg .job-card .job-info p{color:#d5e1f1}
+.careers-bg .job-card .job-type{color:#9fc2ff}
+.careers-bg .job-card .job-symbol{background:rgba(255,255,255,.14);color:#cfe1ff}
+.careers-bg .job-card .job-meta{color:#b9c9de;border-top:1px solid rgba(255,255,255,.18)}
+.careers-bg .managed-job-card .job-meta{border-top-color:rgba(255,255,255,.18)}
+.careers-bg .managed-job-image{background:rgba(255,255,255,.1)}
+.careers-bg .slider-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);color:#fff}
+.careers-bg .slider-btn:hover:not(:disabled){background:rgba(255,255,255,.2);border-color:#fff;color:#fff}
+.careers-bg .slider-btn:disabled{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.35)}
+.careers-bg .job-slider-track{scrollbar-color:rgba(255,255,255,.4) transparent}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.careers-bg .job-card,.careers-bg .job-search{background:rgba(16,39,71,.85)}}
+
+/* ===== Job details side drawer: dark glass to match the Careers page ===== */
+.job-drawer{background:linear-gradient(165deg,rgba(11,28,48,.97) 0%,rgba(16,39,71,.96) 100%);border-left:1px solid rgba(255,255,255,.18);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:-20px 0 55px rgba(4,14,28,.5);color:#e2eaf5}
+.job-drawer-header{background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.16)}
+.job-drawer-header .eyebrow{color:#9fc2ff}
+.job-drawer-header h2{color:#fff}
+.job-drawer .icon-button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;transition:background .2s}
+.job-drawer .icon-button:hover{background:rgba(255,255,255,.2)}
+.job-drawer-content{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
+.job-drawer-content .job-info p,.job-drawer-content .job-drawer-description p{color:#d5e1f1}
+.job-drawer-content .job-type{color:#9fc2ff}
+.job-drawer-content .job-symbol{background:rgba(255,255,255,.14);color:#cfe1ff}
+.job-drawer-content .job-meta{color:#b9c9de;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18)}
+.job-drawer-extra{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18)}
+.job-drawer-extra p{color:#d5e1f1}
+.job-drawer-contact{border-top:1px solid rgba(255,255,255,.18)}
+.job-drawer-contact h3{color:#fff}
+.job-drawer-contact h4{color:#fff}
+.job-drawer-contact p{color:#d5e1f1}
+.job-drawer-contact strong{color:#fff}
+.job-drawer-contact a{color:#9fc2ff}
+.job-detail-copy h3{color:#fff}
+.job-detail-copy p{color:#d5e1f1}
+.job-detail-photo{background:rgba(255,255,255,.08)}
+
+/* ===== Apply form: dark glass card, white text, glass inputs ===== */
+.apply-overlay .apply-form-page{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);box-shadow:0 28px 70px rgba(4,14,28,.45),inset 0 1px 0 rgba(255,255,255,.3);color:#f4f8ff;color-scheme:dark}
+.apply-overlay .apply-form-page .form-title{border-bottom-color:rgba(255,255,255,.2)}
+.apply-overlay .apply-form-page .form-title h2{color:#fff}
+.apply-overlay .apply-form-page .form-title p,.apply-overlay .apply-form-page .form-footer p{color:#cfdcec}
+.apply-overlay .apply-form-page .form-footer{border-top-color:rgba(255,255,255,.2)}
+.apply-overlay .apply-form-page .field>label{color:#eaf1fb}
+.apply-overlay .apply-form-page .radio-label{color:#f4f8ff}
+.apply-overlay .apply-form-page .field input:not([type=radio]):not([type=checkbox]),
+.apply-overlay .apply-form-page .field select,
+.apply-overlay .apply-form-page .field textarea{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);color:#fff}
+.apply-overlay .apply-form-page .field input::placeholder,
+.apply-overlay .apply-form-page .field textarea::placeholder{color:rgba(230,238,250,.55)}
+.apply-overlay .apply-form-page .field input:focus,
+.apply-overlay .apply-form-page .field select:focus,
+.apply-overlay .apply-form-page .field textarea:focus{background:rgba(255,255,255,.2);border-color:#9fc2ff;box-shadow:0 0 0 3px rgba(159,194,255,.3)}
+.apply-overlay .apply-form-page .field input[readonly]{background:rgba(255,255,255,.06);color:#cfdcec}
+.apply-overlay .apply-form-page .field select option{background:#102747;color:#fff}
+.apply-overlay .apply-form-page .apply-banner{background:rgba(159,194,255,.16);border:1px solid rgba(159,194,255,.4);color:#fff}
+.apply-overlay .apply-form-page .form-message.success{color:#7be0b5}
+.apply-overlay .apply-form-page .form-message.error{color:#ffb4b4}
+.apply-success-full{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#fff}
+.apply-success-full h3{color:#fff}
+.apply-success-full p{color:#d5e1f1}
+.apply-success-full .apply-success-icon{background:rgba(123,224,181,.18);color:#7be0b5}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.apply-overlay .apply-form-page,.apply-success-full,.job-drawer{background:rgba(16,39,71,.96)}}
