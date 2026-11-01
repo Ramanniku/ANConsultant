@@ -591,3 +591,10 @@ body.apply-open{overflow:hidden}
 
 /* Readable headings directly on the lighter photo */
 .page-hero.careers-hero h1,.page-hero.careers-hero .lead,.careers-bg .jobs-heading h2,.careers-bg .block-title,.careers-bg .jobs-heading .muted,.careers-bg .category-head .muted,.apply-intro h1,.apply-intro .lead{text-shadow:0 2px 14px rgba(4,14,28,.55)}
+
+/* ===== Careers categories: full grid (3 columns, rows, page scrolls vertically) ===== */
+.job-slider-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;overflow:visible;overflow-x:visible;scroll-snap-type:none;scroll-behavior:auto;padding:6px 0 0}
+.job-slider-track>.job-card{flex:none;width:auto;height:100%;scroll-snap-align:none}
+.job-slider-track:focus-visible{outline:none}
+@media(max-width:980px){.job-slider-track{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.job-slider-track{grid-template-columns:1fr;gap:16px}}
